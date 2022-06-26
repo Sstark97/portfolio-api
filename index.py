@@ -3,13 +3,13 @@ import unittest
 from flask import render_template
 from app import create_app
 from app.config import Config
-from app.model.db_config import db
+from app.model.db_config import init_db, db_session
+from app.model.user import User
+from app.model.proyect import Proyect
 
 app = create_app()
 app.config.from_object(Config())
-db.init_app(app)
-db.create_all(app=app)
-
+init_db()
 
 @app.cli.command()
 def test():
