@@ -15,5 +15,8 @@ def init_db():
     import app.model.user
     import app.model.proyect
     import app.model.cv
+    import app.model.work
+    import app.model.education
+    import app.model.hobby
 
     Base.metadata.create_all(bind=engine)

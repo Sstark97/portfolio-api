@@ -2,10 +2,10 @@
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from app.model.db_config import Base
-
 class User(Base):
     """Clase que define el Modelo de Usuarios"""
     __tablename__ = 'user'
+
     def __init__(self, email, name, surname, adress, phone, password, api_token):
         self.email = email
         self.name = name
