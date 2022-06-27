@@ -4,8 +4,7 @@ from flask import render_template
 from app import create_app
 from app.controller.auth import auth
 from app.config import Config
-from app.model.db_config import init_db, db_session
-from app.model.user import User
+from app.model.db_config import init_db
 
 app = create_app()
 app.config.from_object(Config())
