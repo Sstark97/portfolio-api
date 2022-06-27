@@ -56,6 +56,9 @@ def testing():
     """Página de Test"""
 
     user_data = db_session.query(User.email, User.name, Proyect.name).join(Proyect).filter(User.email == Proyect.user_email).one()
+    user = User("pepe@pepe.com", "Aitor", "Gonzalez", "San", "12344", "12345567", "sqwrqr")
+    db_session.add(user)
+    db_session.commit()
 
     data_1 = {
         'email': user_data[0],

@@ -1,6 +1,7 @@
 """Archivo que define el Modelo de Usuarios"""
+import re
 from sqlalchemy import Column, String
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, validates
 from app.model.db_config import Base
 class User(Base):
     """Clase que define el Modelo de Usuarios"""
@@ -24,3 +25,23 @@ class User(Base):
     api_token = Column(String(100))
     cv = relationship('Cv', backref='user', lazy=True)
     proyect = relationship('Proyect', backref='user', lazy=True)
+
+    @validates('email')
+    def validate_email(self, key, adress):
+        """Valida el formato de email"""
+        # pylint: disable=unused-argument
+
+        patt = re.compile(r"[\w]{4,20}@[\w]{4,12}.com")
+        if not re.fullmatch(patt,adress):
+            raise ValueError(f'{adress} is not an email')
+        return adress
+    
+    @validates('phone')
+    def validate_phone(self, key, new_phone):
+        """Valida el formato del telefono"""
+        # pylint: disable=unused-argument
+
+        patt = re.compile(r"[\d]{9}")
+        if not re.fullmatch(patt,new_phone):
+            raise ValueError(f'{new_phone} is not a phone')
+        return new_phone
