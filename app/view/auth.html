@@ -1,0 +1,31 @@
+{% extends 'base.html'%}
+{% from 'macros.html' import render_form %}
+
+{% block title %}
+    {{super()}}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+
+    <main class="container p-4 pb-4 w-50">
+
+        {% if form.errors %}
+            {% for field, errors in form.errors.items() %}
+                {% for error in errors%}
+                    <div class="row justify-content-md-center alert alert-danger alert-dismissible" role="alert">
+                        <button  type="button" class="col btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        {{ error}}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+
+        <form class="row justify-content-md-center" action="{{ action }}" method="POST">
+            {{ form.csrf_token}}
+            {{ render_form(form) }}
+        </form>
+
+    </main>
+
+{% endblock content %}

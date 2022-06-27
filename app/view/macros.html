@@ -1,0 +1,14 @@
+{% macro render_form(form) %}
+    {% for field in form %}
+        {% if field.name not in ("csrf_token", "submit") %}
+            <div class="form-floating mb-3">
+                {{ field(class_="form-control", placeholder_=field.name) }}
+                {{ field.label }}
+            </div>
+        {% elif field.name == "submit" %}
+            <div class="d-grid gap-2">
+                {{ field(class_="btn btn-primary btn-block") }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
