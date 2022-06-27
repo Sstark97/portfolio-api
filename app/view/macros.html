@@ -1,10 +1,17 @@
 {% macro render_form(form) %}
     {% for field in form %}
         {% if field.name not in ("csrf_token", "submit") %}
-            <div class="form-floating mb-3">
-                {{ field(class_="form-control", placeholder_=field.name) }}
-                {{ field.label(class_="ms-3")}}
-            </div>
+            {% if field.name == "remember_me" %}
+                <div class="form-check mb-3 ms-4">
+                    {{ field(class_="form-check-input", placeholder_=field.name) }}
+                    {{ field.label(class_="form-check-label")}}
+                </div>
+            {% else %}
+                <div class="form-floating mb-3">
+                    {{ field(class_="form-control", placeholder_=field.name) }}
+                    {{ field.label(class_="ms-3")}}
+                </div>
+            {% endif %}
         {% elif field.name == "submit" %}
             <div class="d-grid gap-2">
                 {{ field(class_="btn btn-block") }}

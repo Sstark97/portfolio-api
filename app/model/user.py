@@ -27,6 +27,9 @@ class User(UserMixin, Base):
     cv = relationship('Cv', backref='user', lazy=True)
     proyect = relationship('Proyect', backref='user', lazy=True)
 
+    def get_id(self):
+        return self.email
+
     @validates('email')
     def validate_email(self, key, adress):
         """Valida el formato de email"""

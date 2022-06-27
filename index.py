@@ -1,6 +1,7 @@
 """ Archivo inicial de la App de Flask"""
 import unittest
 from flask import render_template
+from flask_login import current_user
 from app import create_app
 from app.controller.auth import auth
 from app.config import Config
