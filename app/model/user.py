@@ -1,9 +1,10 @@
 """Archivo que define el Modelo de Usuarios"""
 import re
+from flask_login import UserMixin
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship, validates
 from app.model.db_config import Base
-class User(Base):
+class User(UserMixin, Base):
     """Clase que define el Modelo de Usuarios"""
     __tablename__ = 'user'
 
