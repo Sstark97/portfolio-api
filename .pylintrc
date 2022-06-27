@@ -288,7 +288,7 @@ indent-after-paren=4
 indent-string='    '
 
 # Maximum number of characters on a single line.
-max-line-length=100
+max-line-length=140
 
 # Maximum number of lines in a module.
 max-module-lines=1000
@@ -585,4 +585,4 @@ overgeneral-exceptions=BaseException,
                        Exception
 
 # White Space Error
-disable=C0303, E0401
+disable=C0303, E0401, C0415, W0611
