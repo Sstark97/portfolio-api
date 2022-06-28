@@ -23,3 +23,8 @@ body {
 input[type="submit"] {
     background: var(--fourth);
 }
+
+#user_nav {
+    background: var(--fourth);
+    color: #000;
+}

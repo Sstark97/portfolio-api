@@ -17,7 +17,7 @@ def login_index():
     """Página de Login"""
 
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
 
     login_form = LoginForm()
 
@@ -34,7 +34,7 @@ def login_index():
         if check_password(login_form.password.data, user.password):
 
             login_user(user, remember=login_form.remember_me.data)
-            return redirect(url_for('index'))
+            return redirect(url_for('home'))
 
         return render_template('auth.html', **context)
 
@@ -46,7 +46,7 @@ def register_index():
     """Página de Registro"""
 
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
 
     register_form = RegisterForm()
 
@@ -72,7 +72,7 @@ def register_index():
 
         login_user(new_user, remember=True)
 
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
 
     return render_template('auth.html', **context)
 
