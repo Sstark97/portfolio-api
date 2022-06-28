@@ -23,7 +23,7 @@
 
         <h1 class="h1 text-center">{{ form_title }}</h1>
 
-        <form class="row justify-content-md-center pt-5" action="{{ action }}" method="POST">
+        <form class="row justify-content-md-center pt-5" enctype="multipart/form-data" method="POST">
             {{ form.csrf_token}}
             {{ render_form(form) }}
         </form>
