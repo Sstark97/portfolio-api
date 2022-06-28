@@ -1,7 +1,7 @@
 """Blueprint que se encarga de la autenticación de los usuarios"""
 from secrets import token_hex
 from flask import Blueprint, redirect, render_template, url_for
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user, login_required, logout_user, current_user
 from app.utils.hash_password import hash_password, check_password
 from app.utils.firebase_config import storage
 from app.forms.register_form import RegisterForm
@@ -15,6 +15,9 @@ auth = Blueprint('auth', __name__)
 @auth.route('/login', methods=['GET', 'POST'])
 def login_index():
     """Página de Login"""
+
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
 
     login_form = LoginForm()
 
@@ -41,6 +44,9 @@ def login_index():
 @auth.route('/register', methods=['GET', 'POST'])
 def register_index():
     """Página de Registro"""
+
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
 
     register_form = RegisterForm()
 
