@@ -1,7 +1,6 @@
 """ Archivo inicial de la App de Flask"""
 import unittest
 from flask import render_template
-from flask_login import current_user
 from app import create_app
 from app.controller.auth import auth
 from app.config import Config
@@ -29,15 +28,16 @@ def index():
 # def testing():
 #     """Página de Test"""
 
-#     user_data = db_session.query(User.email, User.name, Proyect.name).join(Proyect).filter(User.email == Proyect.user_email).one()
-#     user = User("pepe@pepe.com", "Aitor", "Gonzalez", "San", "12344", "12345567", "sqwrqr")
-#     db_session.add(user)
-#     db_session.commit()
+#     user_data = db_session.query(User).filter(User.email == "aitorscinfo@gmail.com").one()
 
 #     data_1 = {
-#         'email': user_data[0],
-#         'name': user_data[1],
-#         'proyect': user_data[2]
+#         'email': user_data.email,
+#         'name': user_data.name,
+#         'surname': user_data.surname,
+#         'adress': user_data.adress,
+#         'phone': user_data.phone,
+#         'avatar': user_data.avatar,
+#         'token': user_data.api_token
 #     }
 
 #     return make_response(jsonify(message="Okey",data = data_1), 200)
