@@ -3,3 +3,23 @@
     margin: 0;
     padding: 0;
 }
+
+:root {
+    --primary: #E9EFC0;
+    --secondary: #B4E197;
+    --third: #83BD75;
+    --fourth: #4E944F
+}
+
+body, html {
+    width: 100vw;
+    height: 100vh;
+}
+
+body {
+    background: var(--primary);
+}
+
+input[type="submit"] {
+    background: var(--fourth);
+}

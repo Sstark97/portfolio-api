@@ -1,9 +1,10 @@
 """Archivo que define el Modelo de Usuarios"""
 import re
+from flask_login import UserMixin
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship, validates
 from app.model.db_config import Base
-class User(Base):
+class User(UserMixin, Base):
     """Clase que define el Modelo de Usuarios"""
     __tablename__ = 'user'
 
@@ -25,6 +26,9 @@ class User(Base):
     api_token = Column(String(100))
     cv = relationship('Cv', backref='user', lazy=True)
     proyect = relationship('Proyect', backref='user', lazy=True)
+
+    def get_id(self):
+        return self.email
 
     @validates('email')
     def validate_email(self, key, adress):
