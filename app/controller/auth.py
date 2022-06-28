@@ -26,7 +26,7 @@ def login_index():
         user= db_session.query(User).filter_by(email=login_form.email.data).first()
 
         if check_password(login_form.password.data, user.password):
-            print(login_form.remember_me.data)
+  
             login_user(user, remember=login_form.remember_me.data)
             return redirect(url_for('index'))
         
@@ -51,6 +51,8 @@ def register_index():
                         register_form.phone.data, hash_password(register_form.password.data), token_hex(16))
         db_session.add(new_user)
         db_session.commit()
+
+        login_user(new_user, remember=True)
 
         return redirect(url_for('index'))
 
