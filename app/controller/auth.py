@@ -1,4 +1,4 @@
-"""Blueprint que se encarga de la autenticación de los usuarios"""
+""" Controlador que se encarga de la autenticación de los usuarios """
 from secrets import token_hex
 from flask import Blueprint, redirect, render_template, url_for
 from flask_login import login_user, login_required, logout_user, current_user

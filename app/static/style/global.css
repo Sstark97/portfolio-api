@@ -21,7 +21,7 @@ body {
     background: var(--primary);
 }
 
-input[type="submit"], button[type="submit"] {
+input[type="submit"], button[type="submit"], #add_data {
     background: var(--fourth);
 }
 
@@ -30,6 +30,6 @@ input[type="submit"], button[type="submit"] {
     color: #000;
 }
 
-#delete_btn a {
+#delete_btn a, #add_data a {
     color: #000;
 }

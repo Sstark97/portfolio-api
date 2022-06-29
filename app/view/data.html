@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+{% from 'macros.html' import render_form %}
+
+{% block title %}
+    {{super()}}
+    Proyectos
+{% endblock %}
+
+{% block content %}
+    {% include 'navbar.html' %}
+
+    <main class="container-fluid p-4 pb-4 w-75 pt-5">
+        <div class="row">
+            <div class="col-md-12 text-center py-3">
+                <button id="add_data" class="btn">
+                    <a class="text-decoration-none" href="{{ action }}">Añadir {{ type | capitalize }}</a>
+                </button>
+            </div>
+        </div>
+        {% if data == [] %}
+            <p class="text-center">
+                <span class="text-black-50">No hay {{ type }}s, añada un nuevo {{ type | capitalize }} </span>
+            </p>
+        {% else %}
+            <p>Hay datos</p>
+        {% endif %}
+    </main>
+
+{% endblock %}

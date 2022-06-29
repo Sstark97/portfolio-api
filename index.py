@@ -3,7 +3,7 @@ import unittest
 from flask import render_template
 from flask_login import login_required
 from app import create_app
-from app.controller.controllers import auth, account
+from app.controller.controllers import auth, account, projects
 from app.config import Config
 from app.model.db_config import init_db
 
@@ -13,6 +13,7 @@ init_db()
 
 app.register_blueprint(auth)
 app.register_blueprint(account)
+app.register_blueprint(projects)
 
 
 @app.cli.command()
