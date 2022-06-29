@@ -1,4 +1,5 @@
 """ Controlador que se encarga de la autenticación de los proyectos de un usuario """
+from dataclasses import fields
 from secrets import token_hex
 from flask import Blueprint, redirect, render_template, url_for
 from flask_login import login_required, current_user
@@ -17,14 +18,16 @@ def projects_index():
 
     user_projects = Project.query.filter_by(
         user_email=current_user.email).all()
-
-    print(user_projects)
+    project_fields = ['name', 'description', 'repository', 'user_email', 'image', 'web',]
 
     context = {
         'title': 'Proyectos',
         'type': 'proyecto',
         'action': url_for('projects.projects_new'),
-        'data': user_projects
+        'delete_action': '/projects/delete/',
+        'edit_action': '/projects/edit/',
+        'data': user_projects,
+        'fields': project_fields
     }
 
     return render_template('data.html', **context)

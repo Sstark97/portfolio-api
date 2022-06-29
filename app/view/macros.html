@@ -24,3 +24,41 @@
         {% endif %}
     {% endfor %}
 {% endmacro %}
+
+{% macro render_table(fields, data, edit_action, delete_action) %} 
+    <table id="example" class="table table-bordered table-info" style="width: 100%;">
+        <thead>
+            <tr>
+                {% for field in fields %}
+                    {% if field not in ("user_email") %}
+                        <th>{{ field | capitalize}}</th>
+                    {% endif %}
+                {% endfor %}
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for row in data %}
+                <tr>
+                    {% for field in fields %}
+                        {% if field not in ("user_email") %}
+                            {% if "https" in row[field]%}
+                                <td>
+                                    <a class="text-decoration-none text-black-50" href="{{ row[field] }}">Enlace </a>
+                                </td>
+                            {% else %}
+                                <td>{{ row[field] }}</td>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    <td class="text-center">
+                        <a href="{{ edit_action }}{{ row.id }}" class="btn btn-warning mt-2"><i class='bx bxs-edit-alt'></i></a>
+                        <a href="{{ delete_action }}{{ row.id }}" class="btn btn-danger mt-2"><i id="trash_icon" class='bx bxs-trash-alt'></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+{% endmacro %}
