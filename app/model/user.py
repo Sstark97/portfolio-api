@@ -27,7 +27,7 @@ class User(UserMixin, Base):
     avatar = Column(String(100))
     api_token = Column(String(100))
     cv = relationship('Cv', backref='user', lazy=True)
-    proyect = relationship('Proyect', backref='user', lazy=True)
+    proyect = relationship('Project', backref='user', lazy=True)
 
     def get_id(self):
         return self.email

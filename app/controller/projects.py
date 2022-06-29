@@ -1,7 +1,7 @@
 """ Controlador que se encarga de la autenticación de los proyectos de un usuario """
 from flask import Blueprint, render_template, url_for
 from flask_login import login_required, current_user
-from app.model.models import Proyect, User
+from app.model.models import Project
 from app.utils.firebase_config import storage
 
 projects = Blueprint('projects', __name__)
@@ -11,7 +11,7 @@ projects = Blueprint('projects', __name__)
 def projects_index():
     """Página de inicio de proyectos"""
 
-    user_projects = Proyect.query.filter_by(user_email=current_user.email).all()
+    user_projects = Project.query.filter_by(user_email=current_user.email).all()
 
     print(user_projects)
 

@@ -2,9 +2,9 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from app.model.db_config import Base
 
-class Proyect(Base):
+class Project(Base):
     """Clase que define el Modelo de Proyectos"""
-    __tablename__ = 'proyect'
+    __tablename__ = 'project'
 
     def __init__(self, name, description, image, web, repository, user_email):
         self.name = name
