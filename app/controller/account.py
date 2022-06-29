@@ -2,12 +2,11 @@
 from secrets import token_hex
 from flask import Blueprint, render_template, redirect, url_for, request
 from flask_login import login_required, logout_user, current_user
-from app.forms.account_form import AccountForm
-from app.forms.delete_account_form import DeleteAccountForm
+from app.forms.forms import AccountForm, DeleteAccountForm
 from app.utils.hash_password import hash_password
 from app.utils.firebase_config import storage
 from app.model.db_config import db_session
-from app.model.user import User
+from app.model.models import User
 
 account = Blueprint('account', __name__)
 

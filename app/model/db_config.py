@@ -11,7 +11,7 @@ Base = declarative_base()
 Base.query = db_session.query_property()
 
 def init_db():
-    """import all modules here that might define models so that"""
+    """Inicializa la Base de Datos"""
     import app.model.user
     import app.model.proyect
     import app.model.cv

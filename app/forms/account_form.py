@@ -3,7 +3,6 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, FileField
 from wtforms.validators import DataRequired, Length, EqualTo, regexp
 
-
 class AccountForm(FlaskForm):
     """ Formulario para cambiar los datos de la cuenta """
 

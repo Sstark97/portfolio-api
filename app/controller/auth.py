@@ -4,10 +4,9 @@ from flask import Blueprint, redirect, render_template, url_for
 from flask_login import login_user, login_required, logout_user, current_user
 from app.utils.hash_password import hash_password, check_password
 from app.utils.firebase_config import storage
-from app.forms.register_form import RegisterForm
-from app.forms.login_form import LoginForm
+from app.forms.forms import RegisterForm, LoginForm
 from app.model.db_config import db_session
-from app.model.user import User
+from app.model.models import User
 
 auth = Blueprint('auth', __name__)
 
