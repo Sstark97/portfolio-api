@@ -36,9 +36,9 @@ def login():
             login_user(user, remember=login_form.remember_me.data)
             return redirect(url_for('home'))
 
-        return render_template('auth.html', **context)
+        return render_template('forms.html', **context)
 
-    return render_template('auth.html', **context)
+    return render_template('forms.html', **context)
 
 
 @auth.route('/register', methods=['GET', 'POST'])
@@ -75,7 +75,7 @@ def register():
 
         return redirect(url_for('home'))
 
-    return render_template('auth.html', **context)
+    return render_template('forms.html', **context)
 
 
 @auth.route('/logout')

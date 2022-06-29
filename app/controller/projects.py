@@ -1,5 +1,5 @@
 """ Controlador que se encarga de la autenticación de los proyectos de un usuario """
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, url_for
 from flask_login import login_required, current_user
 from app.model.models import Proyect, User
 from app.utils.firebase_config import storage
@@ -23,3 +23,16 @@ def projects_index():
     }
 
     return render_template('data.html', **context)
+
+@projects.route('/projects/new')
+@login_required
+def projects_new():
+    """Página de creación de proyectos"""
+
+    context = {
+        'title': 'Nuevo Proyecto',
+        'form': '',
+        'action': url_for('projects.projects_new')
+    }
+
+    return render_template('forms.html', **context)
