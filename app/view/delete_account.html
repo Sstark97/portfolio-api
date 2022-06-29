@@ -1,0 +1,42 @@
+{% extends 'base.html'%}
+{% from 'macros.html' import render_form %}
+
+{% block title %}
+    {{super()}}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+
+    {% include 'navbar.html' %}
+
+    <main class="container-fluid p-4 pb-4 w-75 pt-5">
+
+        {% if form.errors %}
+            {% for field, errors in form.errors.items() %}
+                {% for error in errors%}
+                    <div class="row justify-content-md-center alert alert-danger alert-dismissible" role="alert">
+                        <button  type="button" class="col btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        {{ error}}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+
+        <h1 class="h1 text-center">{{ form_title }}</h1>
+        <p class="text-center">
+            <span class="text-black-50">Introduce </span>
+            <span class="font-weight-bold">
+                {{ current_user.email }}
+            </span>
+            <span class="text-black-50">para confirmar la eliminación de tu cuenta.</span>
+        </p>
+
+        <form class="row justify-content-md-center pt-5" method="POST" action="{{ action }}">
+            {{ form.csrf_token}}
+            {{ render_form(form) }}
+        </form>
+
+    </main>
+
+{% endblock content %}

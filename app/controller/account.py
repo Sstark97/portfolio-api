@@ -1,8 +1,9 @@
 """ Controlador para manejar la cuenta del usuario"""
 from secrets import token_hex
 from flask import Blueprint, render_template, redirect, url_for, request
-from flask_login import login_required, current_user
+from flask_login import login_required, logout_user, current_user
 from app.forms.account_form import AccountForm
+from app.forms.delete_account_form import DeleteAccountForm
 from app.utils.hash_password import hash_password
 from app.utils.firebase_config import storage
 from app.model.db_config import db_session
@@ -63,3 +64,19 @@ def token():
     db_session.commit()
 
     return redirect(url_for('account.profile'))
+
+@account.route('/account/delete', methods=['GET', 'POST'])
+@login_required
+def delete_account():
+    """Página de Eliminación de la Cuenta"""
+    form = DeleteAccountForm()
+
+    if form.validate_on_submit():
+        storage.delete(f'users/{current_user.email}/avatar', token=token_hex(16))
+        db_session.query(User).filter(User.email == current_user.email).delete()
+        db_session.commit()
+        logout_user()
+
+        return redirect(url_for('index'))
+
+    return render_template('delete_account.html', form=form)

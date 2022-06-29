@@ -29,3 +29,7 @@ input[type="submit"], button[type="submit"] {
     background: var(--fourth);
     color: #000;
 }
+
+#delete_btn a {
+    color: #000;
+}
