@@ -4,16 +4,15 @@ from flask import Blueprint, redirect, render_template, url_for
 from flask_login import login_user, login_required, logout_user, current_user
 from app.utils.hash_password import hash_password, check_password
 from app.utils.firebase_config import storage
-from app.forms.register_form import RegisterForm
-from app.forms.login_form import LoginForm
+from app.forms.forms import RegisterForm, LoginForm
 from app.model.db_config import db_session
-from app.model.user import User
+from app.model.models import User
 
 auth = Blueprint('auth', __name__)
 
 
 @auth.route('/login', methods=['GET', 'POST'])
-def login_index():
+def login():
     """Página de Login"""
 
     if current_user.is_authenticated:
@@ -24,7 +23,8 @@ def login_index():
     context = {
         'title': 'inicio de Sesión',
         'form_title': 'Inicio de Sesión',
-        'form': login_form
+        'form': login_form,
+        'action': url_for('auth.login')
     }
 
     if login_form.validate_on_submit():
@@ -42,7 +42,7 @@ def login_index():
 
 
 @auth.route('/register', methods=['GET', 'POST'])
-def register_index():
+def register():
     """Página de Registro"""
 
     if current_user.is_authenticated:
@@ -53,7 +53,8 @@ def register_index():
     context = {
         'title': 'Registro',
         'form_title': 'Formulario de Registro',
-        'form': register_form
+        'form': register_form,
+        'action': url_for('auth.register')
     }
 
     if register_form.validate_on_submit():
@@ -64,7 +65,7 @@ def register_index():
             storage.child(f'users/{register_form.email.data}/avatar').put(user_avatar)
             user_avatar_path = storage.child(f'users/{register_form.email.data}/avatar').get_url(token=token_hex(16))
 
-        new_user = User(register_form.email.data, register_form.name.data, register_form.surname.data, register_form.adress.data,
+        new_user = User(register_form.email.data, register_form.name.data, register_form.surnames.data, register_form.adress.data,
                         register_form.phone.data, hash_password(register_form.password.data), token_hex(16), 
                         avatar=user_avatar_path)
         db_session.add(new_user)

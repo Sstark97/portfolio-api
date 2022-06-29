@@ -8,6 +8,8 @@
 
 {% block content %}
 
+    {% include 'navbar.html' %}
+
     <main class="container-fluid p-4 pb-4 w-75 pt-5">
 
         {% if form.errors %}
@@ -22,8 +24,15 @@
         {% endif %}
 
         <h1 class="h1 text-center">{{ form_title }}</h1>
+        <p class="text-center">
+            <span class="text-black-50">Introduce </span>
+            <span class="font-weight-bold">
+                {{ current_user.email }}
+            </span>
+            <span class="text-black-50">para confirmar la eliminación de tu cuenta.</span>
+        </p>
 
-        <form class="row justify-content-md-center pt-5" enctype="multipart/form-data" method="POST" action="{{ action }}">
+        <form class="row justify-content-md-center pt-5" method="POST" action="{{ action }}">
             {{ form.csrf_token}}
             {{ render_form(form) }}
         </form>
