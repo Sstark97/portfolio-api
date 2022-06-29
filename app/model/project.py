@@ -6,7 +6,7 @@ class Project(Base):
     """Clase que define el Modelo de Proyectos"""
     __tablename__ = 'project'
 
-    def __init__(self, name, description, image, web, repository, user_email):
+    def __init__(self, name, description, repository, user_email, image=None, web=None):
         self.name = name
         self.description = description
         self.image = image
