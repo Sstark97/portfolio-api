@@ -16,6 +16,7 @@ def projects_index():
     print(user_projects)
 
     context = {
+        'title': 'Proyectos',
         'type': 'proyecto',
         'action': '',
         'data': user_projects

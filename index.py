@@ -1,4 +1,5 @@
 """ Archivo inicial de la App de Flask"""
+from turtle import title
 import unittest
 from flask import render_template
 from flask_login import login_required
@@ -27,14 +28,14 @@ def test():
 def index():
     """Página de Inicio"""
 
-    return render_template('index.html')
+    return render_template('index.html', title='Bienvenido')
 
 @app.route('/home')
 @login_required
 def home():
     """Página Principal"""
 
-    return render_template('home.html')
+    return render_template('home.html', title='Home')
 
 # @app.route('/test')
 # def testing():

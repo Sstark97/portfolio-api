@@ -24,6 +24,7 @@ def profile():
         form.phone.data = current_user.phone
 
     context = {
+        'title': 'Cuenta',
         'form': form,
         'action': url_for('account.profile'),
         'token_action': url_for('account.token'),
@@ -70,6 +71,11 @@ def delete_account():
     """Página de Eliminación de la Cuenta"""
     form = DeleteAccountForm()
 
+    context = {
+        'title': 'Eliminar Cuenta',
+        'form': form,
+    }
+
     if form.validate_on_submit():
         storage.delete(f'users/{current_user.email}/avatar', token=token_hex(16))
         db_session.query(User).filter(User.email == current_user.email).delete()
@@ -78,4 +84,4 @@ def delete_account():
 
         return redirect(url_for('index'))
 
-    return render_template('delete_account.html', form=form)
+    return render_template('delete_account.html', **context)
