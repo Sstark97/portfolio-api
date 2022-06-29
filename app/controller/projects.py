@@ -2,6 +2,7 @@
 from flask import Blueprint, render_template, url_for
 from flask_login import login_required, current_user
 from app.model.models import Project
+from app.forms.forms import ProjectForm
 from app.utils.firebase_config import storage
 
 projects = Blueprint('projects', __name__)
@@ -18,7 +19,7 @@ def projects_index():
     context = {
         'title': 'Proyectos',
         'type': 'proyecto',
-        'action': '',
+        'action': url_for('projects.projects_new'),
         'data': user_projects
     }
 
@@ -29,9 +30,11 @@ def projects_index():
 def projects_new():
     """Página de creación de proyectos"""
 
+    project_form = ProjectForm()
+
     context = {
         'title': 'Nuevo Proyecto',
-        'form': '',
+        'form': project_form,
         'action': url_for('projects.projects_new')
     }
 

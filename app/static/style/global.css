@@ -25,6 +25,11 @@ input[type="submit"], button[type="submit"], #add_data {
     background: var(--fourth);
 }
 
+textarea {
+    resize: none;
+    height: 20vh !important;
+}
+
 #user_nav {
     background: var(--fourth);
     color: #000;

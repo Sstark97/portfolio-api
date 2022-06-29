@@ -6,7 +6,7 @@
                     {{ field(class_="form-check-input", placeholder_=field.name) }}
                     {{ field.label(class_="form-check-label")}}
                 </div>
-            {% elif field.name == "avatar" %}
+            {% elif field.name in ("avatar", "project_img") %}
                 <div class="mb-3">
                     {{ field.label(class_="form-label ms-3")}}
                     {{ field(class_="form-control", placeholder_=field.name) }}

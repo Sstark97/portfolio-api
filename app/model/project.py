@@ -19,5 +19,5 @@ class Project(Base):
     description = Column(String(1000), nullable=False)
     image = Column(String(100))
     web = Column(String(100))
-    repository = Column(String(100))
+    repository = Column(String(100), nullable=False)
     user_email = Column(String(100), ForeignKey('user.email'), nullable=False)

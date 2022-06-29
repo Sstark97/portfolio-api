@@ -1,5 +1,4 @@
 """ Modulo con el formulario de Proyectos """
-from flask import Flask
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FileField, TextAreaField
 from wtforms.validators import DataRequired, Length, ValidationError
@@ -19,8 +18,12 @@ class ProjectForm(FlaskForm):
         if proyect_name:
             raise ValidationError(f'El nombre {name.data} ya existe')
     
-    description = TextAreaField('Sinopsis', [Length(min=10, max=1000)])
+    description = TextAreaField('Descripción', [Length(min=10, max=1000)])
 
-    project_img = FileField('Imagen del Proyecto', render_kw={'accept':'image/png, image/jpeg'})
+    project_img = FileField('Imagen', render_kw={'accept':'image/png, image/jpeg'})
+
+    web = StringField('Web', [Length(min=3, max=100)])
+
+    repository = StringField('Repositorio', [Length(min=3, max=100), DataRequired(message="El Repositorio es requerido")])
 
     submit = SubmitField('Crear')
