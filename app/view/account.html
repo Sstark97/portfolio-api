@@ -8,6 +8,19 @@ Bienvenido
 
 {% block content %}
 <div class="container rounded mt-5 mb-5" style="background:var(--secondary)">
+    {% if form.errors %}
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+            {% for field, errors in form.errors.items() %}
+                {% for error in errors%}
+                    <div class="row justify-content-md-center alert alert-danger alert-dismissible" role="alert">
+                        <button  type="button" class="col btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        {{ error}}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    {% endif %}
     <div class="row">
         <div class="col-md-4 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
@@ -18,7 +31,7 @@ Bienvenido
                     <span class="text-center">Api Token</span>
                     <p class="text-center text-black-50">{{ current_user.api_token }}</p>
                 </div>
-                <form class="col-md-12" action=" ">
+                <form class="col-md-12" action=" {{ token_action }} ">
                     <button class="btn form-control" type="submit">Generar Api Token</button>
                 </form>
             </div>
@@ -28,7 +41,7 @@ Bienvenido
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="text-right">Mi Cuenta</h4>
                 </div>
-                <form class="row mt-2" enctype="multipart/form-data" method="POST">
+                <form class="row mt-2" action="{{ action }}" enctype="multipart/form-data" method="POST">
                     {{ form.csrf_token}}
                     {{ render_form(form) }}
                 </form>

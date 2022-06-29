@@ -66,7 +66,7 @@ def register():
             storage.child(f'users/{register_form.email.data}/avatar').put(user_avatar)
             user_avatar_path = storage.child(f'users/{register_form.email.data}/avatar').get_url(token=token_hex(16))
 
-        new_user = User(register_form.email.data, register_form.name.data, register_form.surname.data, register_form.adress.data,
+        new_user = User(register_form.email.data, register_form.name.data, register_form.surnames.data, register_form.adress.data,
                         register_form.phone.data, hash_password(register_form.password.data), token_hex(16), 
                         avatar=user_avatar_path)
         db_session.add(new_user)
