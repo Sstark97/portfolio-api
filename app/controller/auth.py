@@ -13,7 +13,7 @@ auth = Blueprint('auth', __name__)
 
 
 @auth.route('/login', methods=['GET', 'POST'])
-def login_index():
+def login():
     """Página de Login"""
 
     if current_user.is_authenticated:
@@ -24,7 +24,8 @@ def login_index():
     context = {
         'title': 'inicio de Sesión',
         'form_title': 'Inicio de Sesión',
-        'form': login_form
+        'form': login_form,
+        'action': url_for('auth.login')
     }
 
     if login_form.validate_on_submit():
@@ -42,7 +43,7 @@ def login_index():
 
 
 @auth.route('/register', methods=['GET', 'POST'])
-def register_index():
+def register():
     """Página de Registro"""
 
     if current_user.is_authenticated:
@@ -53,7 +54,8 @@ def register_index():
     context = {
         'title': 'Registro',
         'form_title': 'Formulario de Registro',
-        'form': register_form
+        'form': register_form,
+        'action': url_for('auth.register')
     }
 
     if register_form.validate_on_submit():

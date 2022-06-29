@@ -14,13 +14,14 @@
 body, html {
     width: 100vw;
     height: 100vh;
+    overflow-x: hidden;
 }
 
 body {
     background: var(--primary);
 }
 
-input[type="submit"] {
+input[type="submit"], button[type="submit"] {
     background: var(--fourth);
 }
 

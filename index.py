@@ -1,19 +1,18 @@
 """ Archivo inicial de la App de Flask"""
-from atexit import register
 import unittest
 from flask import render_template
-from flask_login import current_user, login_required
+from flask_login import login_required
 from app import create_app
-from app.controller.auth import auth
+from app.controller.controllers import auth, account
 from app.config import Config
 from app.model.db_config import init_db
-from app.forms.register_form import RegisterForm
 
 app = create_app()
 app.config.from_object(Config())
 init_db()
 
 app.register_blueprint(auth)
+app.register_blueprint(account)
 
 
 @app.cli.command()
@@ -28,14 +27,6 @@ def index():
     """Página de Inicio"""
 
     return render_template('index.html')
-
-@app.route('/about')
-def about():
-    """Página de Acerca de"""
-    form = RegisterForm()
-
-    return render_template('account.html', form=form)
-
 
 @app.route('/home')
 @login_required
