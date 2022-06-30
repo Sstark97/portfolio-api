@@ -1,7 +1,7 @@
 """ Controlador que se encarga de la autenticación de los proyectos de un usuario """
 from dataclasses import fields
 from secrets import token_hex
-from flask import Blueprint, redirect, render_template, url_for
+from flask import Blueprint, redirect, render_template, url_for, request
 from flask_login import login_required, current_user
 from app.model.models import Project
 from app.model.db_config import db_session
@@ -65,5 +65,30 @@ def projects_new():
         db_session.commit()
         
         return redirect(url_for('projects.projects_index'))
+
+    return render_template('forms.html', **context)
+
+@projects.route('/projects/edit/<int:project_id>', methods=['GET', 'POST'])
+@login_required
+def projects_edit(project_id):
+    """ Página para editar un Proyecto """
+
+    if request.method == 'POST':
+        project_form = ProjectForm(request.form)
+    else:
+        project_form = ProjectForm()
+    
+    project = Project.query.filter_by(id=project_id).first()
+
+    project_form.name.data = project.name
+    project_form.description.data = project.description
+    project_form.repository.data = project.repository
+    project_form.web.data = project.web
+
+    context = {
+        'title': 'Editar Proyecto',
+        'form': project_form,
+        'action': url_for('projects.projects_edit', project_id=project_id)
+    }
 
     return render_template('forms.html', **context)
