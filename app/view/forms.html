@@ -29,6 +29,16 @@
             <h1 class="h1 text-center">{{ form_title }}</h1>
         {% endif %}
 
+        {% if delete %}
+            <p class="text-center">
+                <span class="text-black-50">¿Está seguro de que quieres eliminar el {{ type }}</span>
+                <span class="font-weight-bold">
+                    {{ name }}
+                </span>
+                <span class="text-black-50">?</span>
+            </p>
+        {% endif %}
+
         <form class="row justify-content-md-center pt-5" enctype="multipart/form-data" method="POST" action="{{ action }}">
             {{ form.csrf_token}}
             {{ render_form(form) }}

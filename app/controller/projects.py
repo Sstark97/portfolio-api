@@ -4,7 +4,7 @@ from flask import Blueprint, redirect, render_template, url_for, request
 from flask_login import login_required, current_user
 from app.model.models import Project
 from app.model.db_config import db_session
-from app.forms.forms import ProjectForm
+from app.forms.forms import ProjectForm, DeleteDataForm
 from app.utils.firebase_config import storage
 
 projects = Blueprint('projects', __name__)
@@ -107,6 +107,34 @@ def projects_edit(project_id):
             'web': project_form.web.data,
             'image': project_path if project_path else project.image
         })
+        db_session.commit()
+
+        return redirect(url_for('projects.projects_index'))
+
+    return render_template('forms.html', **context)
+
+@projects.route('/projects/delete/<int:project_id>', methods=['GET', 'POST'])
+@login_required
+def projects_delete(project_id):
+    """ Página para eliminar un Proyecto """
+
+    project = Project.query.filter_by(id=project_id).first()
+    delete_form = DeleteDataForm()
+
+    context = {
+        'title': 'Eliminar Proyecto',
+        'type': 'proyecto',
+        'name': project.name,
+        'delete': True,
+        'form': delete_form,
+        'action': url_for('projects.projects_delete', project_id=project_id),
+    }
+    
+    if delete_form.validate_on_submit():
+        if project.image:
+            storage.delete(f'users/{current_user.email}/project/project_{project_id}', token=token_hex(16))
+
+        db_session.delete(project)
         db_session.commit()
 
         return redirect(url_for('projects.projects_index'))
