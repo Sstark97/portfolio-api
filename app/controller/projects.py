@@ -1,5 +1,4 @@
 """ Controlador que se encarga de la autenticación de los proyectos de un usuario """
-from dataclasses import fields
 from secrets import token_hex
 from flask import Blueprint, redirect, render_template, url_for, request
 from flask_login import login_required, current_user
