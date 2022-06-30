@@ -43,9 +43,13 @@
                 <tr>
                     {% for field in fields %}
                         {% if field not in ("user_email") %}
-                            {% if "https" in row[field]%}
+                            {% if row[field] and "https" in row[field] %}
                                 <td>
-                                    <a class="text-decoration-none text-black-50" href="{{ row[field] }}">Enlace </a>
+                                    <a class="text-decoration-none text-black-50" href="{{ row[field] }}">Enlace</a>
+                                </td>
+                            {% elif not row[field] and field in ("image", "web") %}
+                                <td>
+                                    <span class="text-decoration-none text-black-50" >No hay enlace</span>
                                 </td>
                             {% else %}
                                 <td>{{ row[field] }}</td>
