@@ -15,7 +15,7 @@ class ProjectForm(FlaskForm):
         """ Función que valida que el nombre de un Proyecto no este repetido """
         proyect_name = db_session.query(Project).filter_by(name=name.data).first()
 
-        if proyect_name:
+        if proyect_name == name.data:
             raise ValidationError(f'El nombre {name.data} ya existe')
     
     description = TextAreaField('Descripción', [Length(min=10, max=1000)])

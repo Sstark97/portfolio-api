@@ -73,22 +73,43 @@ def projects_new():
 def projects_edit(project_id):
     """ Página para editar un Proyecto """
 
+    project = Project.query.filter_by(id=project_id).first()
+
     if request.method == 'POST':
         project_form = ProjectForm(request.form)
     else:
         project_form = ProjectForm()
+        project_form.name.data = project.name
+        project_form.description.data = project.description
+        project_form.repository.data = project.repository
+        project_form.web.data = project.web
+        project_form.submit.label.text = 'Editar'
     
-    project = Project.query.filter_by(id=project_id).first()
-
-    project_form.name.data = project.name
-    project_form.description.data = project.description
-    project_form.repository.data = project.repository
-    project_form.web.data = project.web
 
     context = {
         'title': 'Editar Proyecto',
         'form': project_form,
         'action': url_for('projects.projects_edit', project_id=project_id)
     }
+
+    if project_form.validate_on_submit() and request.method == 'POST':
+        project_path = None
+        project_img = request.files.get('project_img') if request.files.get('project_img') else None
+
+        if project_img:
+            storage.delete(f'users/{current_user.email}/project/project_{project_id}', token=token_hex(16))
+            storage.child(f'users/{current_user.email}/project/project_{project_id}').put(project_img)
+            project_path = storage.child(f'users/{current_user.email}/project/project_{project_id}').get_url(token=token_hex(16))
+        
+        db_session.query(Project).filter_by(id=project_id).update({
+            'name': project_form.name.data,
+            'description': project_form.description.data,
+            'repository': project_form.repository.data,
+            'web': project_form.web.data,
+            'image': project_path if project_path else project.image
+        })
+        db_session.commit()
+
+        return redirect(url_for('projects.projects_index'))
 
     return render_template('forms.html', **context)
