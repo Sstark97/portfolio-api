@@ -25,6 +25,17 @@
     {% endfor %}
 {% endmacro %}
 
+{% macro render_form_errors(form_errors) %}
+    {% for field, errors in form_errors %}
+        {% for error in errors%}
+            <div class="text-center alert alert-danger alert-dismissible" role="alert">
+                <button  type="button" class="col btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                {{ error}}
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endmacro %}
+
 {% macro render_table(fields, data, edit_action, delete_action) %} 
     <table class="table table-bordered table-info portfolio_table" style="width: 100%;">
         <thead>
@@ -65,4 +76,16 @@
         </tbody>
         
     </table>
+{% endmacro %}
+
+{% macro render_delete_message(delete, type, name) %}
+    {% if delete %}
+    <p class="text-center">
+        <span class="text-black-50">¿Está seguro de que quieres eliminar el {{ type }}</span>
+        <span class="font-weight-bold">
+            {{ name }}
+        </span>
+        <span class="text-black-50">?</span>
+    </p>
+    {% endif %}
 {% endmacro %}
