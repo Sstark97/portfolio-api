@@ -1,4 +1,4 @@
-""" Controlador para manejar la cuenta del usuario"""
+""" Controlador para manejar la cuenta del usuario """
 from secrets import token_hex
 from flask import Blueprint, render_template, redirect, url_for, request
 from flask_login import login_required, logout_user, current_user
