@@ -4,6 +4,9 @@
 ### dotenv ###
 .env
 
+### VS Code ###
+.vscode
+
 ### Flask ###
 instance/*
 !instance/.gitignore
