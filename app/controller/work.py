@@ -13,5 +13,13 @@ work = Blueprint('work', __name__)
 def work_index():
     """ Página de Acerca de """
 
-    return "Work"
-    
+    context = {
+        'title': 'Experiencia de Trabajo',
+        'action': url_for('work.work_index'),
+        'type': 'work',
+        'type_name': 'Experiencia de Trabajo',
+        'cv': False,
+        'form': ""
+    }
+
+    return render_template('forms.html', **context)
