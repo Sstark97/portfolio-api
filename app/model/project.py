@@ -2,11 +2,11 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from app.model.db_config import Base
 
-class Proyect(Base):
+class Project(Base):
     """Clase que define el Modelo de Proyectos"""
-    __tablename__ = 'proyect'
+    __tablename__ = 'project'
 
-    def __init__(self, name, description, image, web, repository, user_email):
+    def __init__(self, name, description, repository, user_email, image=None, web=None):
         self.name = name
         self.description = description
         self.image = image
@@ -19,5 +19,5 @@ class Proyect(Base):
     description = Column(String(1000), nullable=False)
     image = Column(String(100))
     web = Column(String(100))
-    repository = Column(String(100))
+    repository = Column(String(100), nullable=False)
     user_email = Column(String(100), ForeignKey('user.email'), nullable=False)

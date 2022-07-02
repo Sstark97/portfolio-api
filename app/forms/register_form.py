@@ -6,7 +6,7 @@ from app.model.db_config import db_session
 from app.model.user import User
 
 class RegisterForm(FlaskForm):
-    """ Formulario de Registro de Usaurios """
+    """ Formulario de Registro de Usuarios """
     email = EmailField('Email', validators=[DataRequired(
         message="El email es requerido"), Email(message="El email no es valido")])
     

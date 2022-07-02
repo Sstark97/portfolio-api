@@ -8,6 +8,10 @@
 
 {% block content %}
 
+    {% if current_user.email %}
+        {% include 'navbar.html' %}
+    {% endif %}
+
     <main class="container-fluid p-4 pb-4 w-75 pt-5">
 
         {% if form.errors %}
@@ -21,7 +25,19 @@
             {% endfor %}
         {% endif %}
 
-        <h1 class="h1 text-center">{{ form_title }}</h1>
+        {% if form_title %}
+            <h1 class="h1 text-center">{{ form_title }}</h1>
+        {% endif %}
+
+        {% if delete %}
+            <p class="text-center">
+                <span class="text-black-50">¿Está seguro de que quieres eliminar el {{ type }}</span>
+                <span class="font-weight-bold">
+                    {{ name }}
+                </span>
+                <span class="text-black-50">?</span>
+            </p>
+        {% endif %}
 
         <form class="row justify-content-md-center pt-5" enctype="multipart/form-data" method="POST" action="{{ action }}">
             {{ form.csrf_token}}

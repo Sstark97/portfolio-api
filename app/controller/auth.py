@@ -1,4 +1,4 @@
-"""Blueprint que se encarga de la autenticación de los usuarios"""
+""" Controlador que se encarga de la autenticación de los usuarios """
 from secrets import token_hex
 from flask import Blueprint, redirect, render_template, url_for
 from flask_login import login_user, login_required, logout_user, current_user
@@ -36,9 +36,9 @@ def login():
             login_user(user, remember=login_form.remember_me.data)
             return redirect(url_for('home'))
 
-        return render_template('auth.html', **context)
+        return render_template('forms.html', **context)
 
-    return render_template('auth.html', **context)
+    return render_template('forms.html', **context)
 
 
 @auth.route('/register', methods=['GET', 'POST'])
@@ -75,7 +75,7 @@ def register():
 
         return redirect(url_for('home'))
 
-    return render_template('auth.html', **context)
+    return render_template('forms.html', **context)
 
 
 @auth.route('/logout')
