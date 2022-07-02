@@ -16,10 +16,9 @@ def work_index():
     context = {
         'title': 'Experiencia de Trabajo',
         'action': url_for('work.work_index'),
-        'type': 'work',
-        'type_name': 'Experiencia de Trabajo',
-        'cv': False,
+        'type': 'Experiencia de Trabajo',
+        'cv': True,
         'form': ""
     }
 
-    return render_template('forms.html', **context)
+    return render_template('data.html', **context)

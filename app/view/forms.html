@@ -26,24 +26,10 @@
             {{ render_delete_message(delete, type, name)}}
         {% endif %}
 
-        {% if not cv and type in ('work','education','hobby') %}
-            <div class="alert alert-danger" role="alert">
-                <h4 class="alert-heading">No tienes ningun@ {{ type_name }} </h4>
-                <p>Para agregar un@ {{ type_name }}, debes rellenar primero tu Curriculum</p>
-                <hr>
-                <p class="mb-0">
-                    <button id="add_data" class="btn"><a class="text-decoration-none" href="" >Crear Curriculum</a></button>
-                </p>
-            </div>
-        
-        {% else %}
-
-            <form class="row justify-content-md-center pt-5" enctype="multipart/form-data" method="POST" action="{{ action }}">
-                {{ form.csrf_token}}
-                {{ render_form(form) }}
-            </form>
-            
-        {% endif %}
+        <form class="row justify-content-md-center pt-5" enctype="multipart/form-data" method="POST" action="{{ action }}">
+            {{ form.csrf_token}}
+            {{ render_form(form) }}
+        </form>
 
     </main>
 
