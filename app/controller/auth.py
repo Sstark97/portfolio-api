@@ -67,7 +67,7 @@ def register():
 
         new_user = User(register_form.email.data, register_form.name.data, register_form.surnames.data, register_form.adress.data,
                         register_form.phone.data, hash_password(register_form.password.data), token_hex(16), 
-                        avatar=user_avatar_path)
+                        presentation=register_form.presentation.data, avatar=user_avatar_path)
         db_session.add(new_user)
         db_session.commit()
 

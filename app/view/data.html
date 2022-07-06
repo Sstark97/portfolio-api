@@ -10,34 +10,23 @@
     {% include 'navbar.html' %}
 
     <main class="container-fluid p-4 pb-4 pt-5">
-        {% if not cv and type in ('work','education','hobby') %}
-            <div class="alert alert-danger" role="alert">
-                <h4 class="alert-heading">No tienes ningun@ {{ type }} </h4>
-                <p>Para agregar un@ {{ type }}, debes rellenar primero tu Curriculum</p>
-                <hr>
-                <p class="mb-0">
-                    <button id="add_data" class="btn"><a class="text-decoration-none" href="" >Crear Curriculum</a></button>
-                </p>
+        <div class="row">
+            <div class="col-md-12 text-center py-3">
+                <button id="add_data" class="btn">
+                    <a class="text-decoration-none" href="{{ action }}">Añadir {{ type | capitalize }}</a>
+                </button>
             </div>
+        </div>
+        {% if not data or data == [] %}
+            <p class="text-center">
+                <span class="text-black-50">No hay {{ type }}s, añada un nuevo {{ type | capitalize }} </span>
+            </p>
         {% else %}
-            <div class="row">
-                <div class="col-md-12 text-center py-3">
-                    <button id="add_data" class="btn">
-                        <a class="text-decoration-none" href="{{ action }}">Añadir {{ type | capitalize }}</a>
-                    </button>
-                </div>
-            </div>
-            {% if not data or data == [] %}
-                <p class="text-center">
-                    <span class="text-black-50">No hay {{ type }}s, añada un nuevo {{ type | capitalize }} </span>
-                </p>
-            {% else %}
-            <div class="row">
+        <div class="row">
 
-                {{ render_table(fields, data, edit_action, delete_action) }}
+            {{ render_table(fields, data, edit_action, delete_action) }}
 
-            </div>
-            {% endif %}
+        </div>
         {% endif %}
     </main>
 

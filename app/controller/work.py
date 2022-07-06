@@ -4,7 +4,7 @@ from flask import Blueprint, render_template, redirect, url_for, request
 from flask_login import login_required, logout_user, current_user
 from app.forms.forms import AccountForm, DeleteAccountForm
 from app.model.db_config import db_session
-from app.model.models import Work, Cv
+from app.model.models import Work
 
 work = Blueprint('work', __name__)
 
@@ -12,13 +12,11 @@ work = Blueprint('work', __name__)
 @login_required
 def work_index():
     """ Página de Acerca de """
-    curriculum = db_session.query(Cv).filter(Cv.user_email == current_user.email).first()
 
     context = {
         'title': 'Experiencia de Trabajo',
         'action': url_for('work.work_index'),
         'type': 'Experiencia de Trabajo',
-        'cv': curriculum,
         'form': ""
     }
 

@@ -20,8 +20,11 @@ def profile():
         form = AccountForm()
         form.name.data = current_user.name
         form.surnames.data = current_user.surname
+        form.presentation.data = current_user.presentation
         form.adress.data = current_user.adress
         form.phone.data = current_user.phone
+
+        print(current_user.presentation)
 
     context = {
         'title': 'Cuenta',
@@ -43,6 +46,7 @@ def profile():
             {
                 'name': form.name.data,
                 'surname': form.surnames.data,
+                'presentation': form.presentation.data,
                 'adress': form.adress.data,
                 'phone': form.phone.data,
                 'password': hash_password(form.password.data) if form.password.data else current_user.password,

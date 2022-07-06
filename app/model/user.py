@@ -8,25 +8,29 @@ class User(UserMixin, Base):
     """Clase que define el Modelo de Usuarios"""
     __tablename__ = 'user'
 
-    def __init__(self, email, name, surname, adress, phone, password, api_token, avatar=None):
+    def __init__(self, email, name, surname, adress, phone, password, api_token, presentation=None, avatar=None):
         self.email = email
         self.name = name
         self.surname = surname
         self.adress = adress
         self.phone = phone
         self.password = password
+        self.presentation = presentation
         self.avatar = avatar
         self.api_token = api_token
 
     email = Column(String(100), primary_key=True)
     name = Column(String(100), nullable=False)
     surname = Column(String(100))
+    presentation = Column(String(1000))
     adress = Column(String(100))
     phone = Column(String(100))
     password = Column(String(100), nullable=False)
     avatar = Column(String(100))
     api_token = Column(String(100))
-    cv = relationship('Cv', backref='user', lazy=True)
+    hobbies = relationship('Hobby', backref='user', lazy=True)
+    work = relationship('Work', backref='user', lazy=True)
+    education = relationship('Education', backref='user', lazy=True)
     proyect = relationship('Project', backref='user', lazy=True)
 
     def get_id(self):
