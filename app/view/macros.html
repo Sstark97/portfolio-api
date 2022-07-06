@@ -25,6 +25,17 @@
     {% endfor %}
 {% endmacro %}
 
+{% macro render_form_errors(form_errors) %}
+    {% for field, errors in form_errors %}
+        {% for error in errors%}
+            <div class="text-center alert alert-danger alert-dismissible" role="alert">
+                <button  type="button" class="col btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                {{ error}}
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endmacro %}
+
 {% macro render_table(fields, data, edit_action, delete_action) %} 
     <table class="table table-bordered table-info portfolio_table" style="width: 100%;">
         <thead>
@@ -43,7 +54,7 @@
                 <tr>
                     {% for field in fields %}
                         {% if field not in ("user_email") %}
-                            {% if row[field] and "https" in row[field] %}
+                            {% if row[field] and field not in ('final_date', 'start_date', 'current') and "https" in row[field] %}
                                 <td>
                                     <a class="text-decoration-none text-black-50" href="{{ row[field] }}">Enlace</a>
                                 </td>
@@ -51,6 +62,12 @@
                                 <td>
                                     <span class="text-decoration-none text-black-50" >No hay enlace</span>
                                 </td>
+                            {% elif field in ("current") %}
+                                {% if row[field] == 0 %}
+                                    <td>Trabajo Actual</td>
+                                {% else %}
+                                    <td>Finalizado</td>
+                                {% endif %}
                             {% else %}
                                 <td>{{ row[field] }}</td>
                             {% endif %}
@@ -65,4 +82,16 @@
         </tbody>
         
     </table>
+{% endmacro %}
+
+{% macro render_delete_message(delete, type, name) %}
+    {% if delete %}
+    <p class="text-center">
+        <span class="text-black-50">¿Está seguro de que quieres eliminar el {{ type }}</span>
+        <span class="font-weight-bold">
+            {{ name }}
+        </span>
+        <span class="text-black-50">?</span>
+    </p>
+    {% endif %}
 {% endmacro %}

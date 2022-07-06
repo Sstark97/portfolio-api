@@ -17,7 +17,7 @@
                 </button>
             </div>
         </div>
-        {% if data == [] %}
+        {% if not data or data == [] %}
             <p class="text-center">
                 <span class="text-black-50">No hay {{ type }}s, añada un nuevo {{ type | capitalize }} </span>
             </p>

@@ -14,7 +14,6 @@ def init_db():
     """Inicializa la Base de Datos"""
     import app.model.user
     import app.model.project
-    import app.model.cv
     import app.model.work
     import app.model.education
     import app.model.hobby

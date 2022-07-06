@@ -1,6 +1,6 @@
 """ Modulo con el formulario de Registro de Usuarios """
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, FileField
+from wtforms import StringField, PasswordField, SubmitField, FileField, TextAreaField
 from wtforms.validators import DataRequired, Length, EqualTo, regexp
 
 class AccountForm(FlaskForm):
@@ -12,6 +12,8 @@ class AccountForm(FlaskForm):
 
     surnames = StringField('Apellidos', validators=[Length(
         min=3, max=30, message="El apellido debe tener entre 3 y 20 caracteres")])
+    
+    presentation = TextAreaField('Presentación', [Length(min=10, max=1000)])
 
     adress = StringField('Direccion', validators=[Length(
         min=3, max=100, message="La direccion debe tener entre 3 y 100 caracteres")])

@@ -1,5 +1,5 @@
 {% extends 'base.html'%}
-{% from 'macros.html' import render_form %}
+{% from 'macros.html' import render_form, render_form_errors, render_delete_message %}
 
 {% block title %}
     {{super()}}
@@ -15,28 +15,15 @@
     <main class="container-fluid p-4 pb-4 w-75 pt-5">
 
         {% if form.errors %}
-            {% for field, errors in form.errors.items() %}
-                {% for error in errors%}
-                    <div class="row justify-content-md-center alert alert-danger alert-dismissible" role="alert">
-                        <button  type="button" class="col btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        {{ error}}
-                    </div>
-                {% endfor %}
-            {% endfor %}
+            {{ render_form_errors(form.errors.items()) }}
         {% endif %}
 
         {% if form_title %}
             <h1 class="h1 text-center">{{ form_title }}</h1>
         {% endif %}
 
-        {% if delete %}
-            <p class="text-center">
-                <span class="text-black-50">¿Está seguro de que quieres eliminar el {{ type }}</span>
-                <span class="font-weight-bold">
-                    {{ name }}
-                </span>
-                <span class="text-black-50">?</span>
-            </p>
+        {% if delete %} 
+            {{ render_delete_message(delete, type, name)}}
         {% endif %}
 
         <form class="row justify-content-md-center pt-5" enctype="multipart/form-data" method="POST" action="{{ action }}">
