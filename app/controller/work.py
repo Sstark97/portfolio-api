@@ -1,8 +1,8 @@
 """ Controlador para manejar la experiencia de trabajo de un usuario """
-from datetime import datetime, date
+from datetime import date
 from flask import Blueprint, render_template, redirect, url_for, request
 from flask_login import login_required, current_user
-from app.forms.forms import WorkForm
+from app.forms.forms import WorkForm, DeleteDataForm
 from app.model.db_config import db_session
 from app.model.models import Work
 
@@ -98,7 +98,7 @@ def work_edit(work_id):
             final_date = date(work_form.final_date.data.year,
                               work_form.final_date.data.month, work_form.final_date.data.day)
             current = True
-            
+
         db_session.query(Work).filter_by(id=work_id).update({
             'position': work_form.position.data,
             'company': work_form.company.data,
@@ -107,6 +107,33 @@ def work_edit(work_id):
             'final_date': final_date,
             'current': current,
         })
+        db_session.commit()
+
+        return redirect(url_for('work.work_index'))
+
+    return render_template('forms.html', **context)
+
+@work.route('/work/delete/<int:work_id>', methods=['GET', 'POST'])
+@login_required
+def work_delete(work_id):
+    """ Página de eliminación de experiencia de trabajo """
+
+    work_to_delete = db_session.query(Work).filter_by(id=work_id).first()
+    delete_form = DeleteDataForm()
+
+    context = {
+        'title': 'Eliminar Experiencia de Trabajo',
+        'type': 'Experiencia de Trabajo',
+        'name': work_to_delete.position,
+        'delete': True,
+        'data': work_to_delete,
+        'form': delete_form,
+        'action': url_for('work.work_delete', work_id=work_id),
+
+    }
+
+    if request.method == 'POST':
+        db_session.query(Work).filter_by(id=work_id).delete()
         db_session.commit()
 
         return redirect(url_for('work.work_index'))
