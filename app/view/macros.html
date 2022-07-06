@@ -54,7 +54,7 @@
                 <tr>
                     {% for field in fields %}
                         {% if field not in ("user_email") %}
-                            {% if row[field] and "https" in row[field] %}
+                            {% if row[field] and field not in ('final_date', 'start_date') and "https" in row[field] %}
                                 <td>
                                     <a class="text-decoration-none text-black-50" href="{{ row[field] }}">Enlace</a>
                                 </td>
@@ -62,6 +62,12 @@
                                 <td>
                                     <span class="text-decoration-none text-black-50" >No hay enlace</span>
                                 </td>
+                            {% elif field in ("current") %}
+                                {% if current %}
+                                    <td>Trabajo Actual</td>
+                                {% else %}
+                                    <td>Finalizado</td>
+                                {% endif %}
                             {% else %}
                                 <td>{{ row[field] }}</td>
                             {% endif %}
