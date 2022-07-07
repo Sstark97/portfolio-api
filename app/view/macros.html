@@ -54,7 +54,7 @@
                 <tr>
                     {% for field in fields %}
                         {% if field not in ("user_email") %}
-                            {% if row[field] and field not in ('final_date', 'start_date', 'current') and "https" in row[field] %}
+                            {% if row[field] and field not in ('final_date', 'start_date', 'current', 'course') and "https" in row[field] %}
                                 <td>
                                     <a class="text-decoration-none text-black-50" href="{{ row[field] }}">Enlace</a>
                                 </td>

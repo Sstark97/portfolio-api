@@ -1,8 +1,9 @@
 """ Formulario para añadir datos academicos """
 from datetime import date
+from email.policy import default
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, DateField, TextAreaField, IntegerRangeField
-from wtforms.validators import DataRequired, Optional, ValidationError
+from wtforms import StringField, SubmitField, DateField, TextAreaField, IntegerField
+from wtforms.validators import DataRequired, NumberRange, Optional, ValidationError
 
 class EducationForm(FlaskForm):
 
@@ -23,6 +24,7 @@ class EducationForm(FlaskForm):
         if isinstance(final_date.data,date) and self.start_date.data > final_date.data:
             raise ValidationError("La fecha de finalización debe ser mayor que la de inicio")
 
-    course = IntegerRangeField('Curso', validators=[DataRequired(message="El curso es requerido")], min=1, max=10)
+    course = IntegerField('Curso', validators=[DataRequired(message="El curso es requerido"), NumberRange(min=1, max=10, 
+                                            message="El campo debe ser un número entre 1 y 10")], default=1)
 
     submit = SubmitField('Añadir')
