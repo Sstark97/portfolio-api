@@ -7,3 +7,4 @@ from app.forms.project_form import ProjectForm
 from app.forms.delete_data_form import DeleteDataForm
 from app.forms.work_form import WorkForm
 from app.forms.education_form import EducationForm
+from app.forms.hobby_form import HobbyForm
