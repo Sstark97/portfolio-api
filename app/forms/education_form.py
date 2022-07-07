@@ -1,16 +1,16 @@
-""" Formulario para añadir experiencia laboral """
+""" Formulario para añadir datos academicos """
 from datetime import date
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, DateField, TextAreaField
+from wtforms import StringField, SubmitField, DateField, TextAreaField, IntegerRangeField
 from wtforms.validators import DataRequired, Optional, ValidationError
 
-class WorkForm(FlaskForm):
+class EducationForm(FlaskForm):
 
-    """ Clase que representa el formulario para añadir experiencia laboral """
+    """ Clase que representa el formulario para añadir datos academicos """
 
-    position = StringField('Puesto de Trabajo', validators=[DataRequired(message="El puesto de trabajo es requerido")])
+    study = StringField('Estudio', validators=[DataRequired(message="El estudio es requerido")])
 
-    company = StringField('Empresa', validators=[DataRequired(message="La empresa es requerida")])
+    education_institution = StringField('Institución Académica', validators=[DataRequired(message="La Institución Académica es requerida")])
 
     description = TextAreaField('Descripción')
 
@@ -22,5 +22,7 @@ class WorkForm(FlaskForm):
         """ Función que valida que la fecha de finalización sea mayor que la de inicio """
         if isinstance(final_date.data,date) and self.start_date.data > final_date.data:
             raise ValidationError("La fecha de finalización debe ser mayor que la de inicio")
+
+    course = IntegerRangeField('Curso', validators=[DataRequired(message="El curso es requerido")], min=1, max=10)
 
     submit = SubmitField('Añadir')
