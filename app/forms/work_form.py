@@ -1,12 +1,12 @@
 """ Formulario para añadir experiencia laboral """
 from datetime import date
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, DateField, SelectField, TextAreaField
+from wtforms import StringField, SubmitField, DateField, TextAreaField
 from wtforms.validators import DataRequired, Optional, ValidationError
 
 class WorkForm(FlaskForm):
 
-    """ Clas que representa el formulario para añadir experiencia laboral """
+    """ Clase que representa el formulario para añadir experiencia laboral """
 
     position = StringField('Puesto de Trabajo', validators=[DataRequired(message="El puesto de trabajo es requerido")])
 
