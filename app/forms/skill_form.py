@@ -7,7 +7,7 @@ class SkillForm(FlaskForm):
 
     """ Clase que representa el formulario para añadir habilidades """
 
-    name = StringField('Hobby', validators=[
+    name = StringField('Habilidad', validators=[
                        DataRequired(message="La habilidad es requerida")])
 
     level = IntegerRangeField('Nivel', validators=[DataRequired(message="El nivel es requerido"), NumberRange(

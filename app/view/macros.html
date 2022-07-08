@@ -11,6 +11,11 @@
                     {{ field.label(class_="form-label ms-3")}}
                     {{ field(class_="form-control", placeholder_=field.name) }}
                 </div>
+            {% elif field.name in ("level") %}
+                <div class="mb-3">
+                    {{ field.label(class_="form-label ms-3")}}
+                    {{ field(class_="form-range", placeholder_=field.name) }}
+                </div>
             {% else %}
                 <div class="form-floating mb-3">
                     {{ field(class_="form-control", placeholder_=field.name) }}
@@ -54,7 +59,8 @@
                 <tr>
                     {% for field in fields %}
                         {% if field not in ("user_email") %}
-                            {% if row[field] and field not in ('final_date', 'start_date', 'current', 'course') and "https" in row[field] %}
+                            {% if row[field] and field not in ('final_date', 'start_date', 'current', 'course', 'level') 
+                                and "https" in row[field] %}
                                 <td>
                                     <a class="text-decoration-none text-black-50" href="{{ row[field] }}">Enlace</a>
                                 </td>
