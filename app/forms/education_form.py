@@ -1,6 +1,5 @@
 """ Formulario para añadir datos academicos """
 from datetime import date
-from email.policy import default
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, DateField, TextAreaField, IntegerField
 from wtforms.validators import DataRequired, NumberRange, Optional, ValidationError
