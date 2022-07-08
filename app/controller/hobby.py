@@ -80,3 +80,30 @@ def hobby_edit(hobby_id):
         return redirect(url_for('hobby.hobby_index'))
 
     return render_template('forms.html', **context)
+
+@hobby.route('/hobby/delete/<int:hobby_id>', methods=['GET', 'POST'])
+@login_required
+def hobby_delete(hobby_id):
+    """ Página de eliminación de Hobbies """
+
+    hobby_data = db_session.query(Hobby).filter_by(id=hobby_id).first()
+
+    context = {
+        'title': 'Eliminar Hobby',
+        'type': 'Hobby',
+        'name': hobby_data.name,
+        'delete': True,
+        'data': hobby_data,
+        'form': DeleteDataForm(),
+        'action': url_for('hobby.hobby_delete', hobby_id=hobby_id),
+    
+    }
+
+    if request.method == 'POST':
+
+        db_session.delete(hobby_data)
+        db_session.commit()
+
+        return redirect(url_for('hobby.hobby_index'))
+
+    return render_template('forms.html', **context)
