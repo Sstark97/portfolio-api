@@ -4,3 +4,4 @@ from app.model.project import Project
 from app.model.work import Work
 from app.model.education import Education
 from app.model.hobby import Hobby
+from app.model.skill import Skill
