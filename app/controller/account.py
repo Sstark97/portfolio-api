@@ -24,8 +24,6 @@ def profile():
         form.adress.data = current_user.adress
         form.phone.data = current_user.phone
 
-        print(current_user.presentation)
-
     context = {
         'title': 'Cuenta',
         'form': form,
