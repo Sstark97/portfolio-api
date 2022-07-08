@@ -100,13 +100,11 @@ def projects_edit(project_id):
             storage.child(f'users/{current_user.email}/project/project_{project_id}').put(project_img)
             project_path = storage.child(f'users/{current_user.email}/project/project_{project_id}').get_url(token=token_hex(16))
         
-        db_session.query(Project).filter_by(id=project_id).update({
-            'name': project_form.name.data,
-            'description': project_form.description.data,
-            'repository': project_form.repository.data,
-            'web': project_form.web.data,
-            'image': project_path if project_path else project.image
-        })
+        project.name = project_form.name.data
+        project.description = project_form.description.data
+        project.repository = project_form.repository.data
+        project.web = project_form.web.data
+        project.image = project_path if project_path else project.image
         db_session.commit()
 
         return redirect(url_for('projects.projects_index'))
