@@ -99,14 +99,12 @@ def work_edit(work_id):
                               work_form.final_date.data.month, work_form.final_date.data.day)
             current = True
 
-        db_session.query(Work).filter_by(id=work_id).update({
-            'position': work_form.position.data,
-            'company': work_form.company.data,
-            'description': work_form.description.data,
-            'start_date': start_date,
-            'final_date': final_date,
-            'current': current,
-        })
+        work_to_edit.position = work_form.position.data
+        work_to_edit.company = work_form.company.data
+        work_to_edit.description = work_form.description.data
+        work_to_edit.start_date = start_date
+        work_to_edit.final_date = final_date
+        work_to_edit.current = current
         db_session.commit()
 
         return redirect(url_for('work.work_index'))
@@ -133,7 +131,7 @@ def work_delete(work_id):
     }
 
     if request.method == 'POST':
-        db_session.query(Work).filter_by(id=work_id).delete()
+        db_session.delete(work_to_delete)
         db_session.commit()
 
         return redirect(url_for('work.work_index'))

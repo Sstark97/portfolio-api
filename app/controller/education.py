@@ -105,15 +105,13 @@ def education_edit(education_id):
                               education_form.final_date.data.month, education_form.final_date.data.day)
             current = True
 
-        db_session.query(Education).filter_by(id=education_id).update({
-            'study': education_form.study.data,
-            'education_institution': education_form.education_institution.data,
-            'description': education_form.description.data,
-            'start_date': start_date,
-            'final_date': final_date,
-            'current': current,
-            'course': education_form.course.data,
-        })
+        education_to_edit.study = education_form.study.data
+        education_to_edit.education_institution = education_form.education_institution.data
+        education_to_edit.description = education_form.description.data
+        education_to_edit.start_date = start_date
+        education_to_edit.final_date = final_date
+        education_to_edit.current = current
+        education_to_edit.course = education_form.course.data
         db_session.commit()
 
         return redirect(url_for('education.education_index'))
@@ -126,8 +124,7 @@ def education_edit(education_id):
 def education_delete(education_id):
     """ Página de eliminación de Datos Académicos """
 
-    education_to_delete = db_session.query(
-        Education).filter_by(id=education_id).first()
+    education_to_delete = db_session.query(Education).filter_by(id=education_id).first()
     delete_form = DeleteDataForm()
 
     context = {
@@ -142,7 +139,7 @@ def education_delete(education_id):
     }
 
     if request.method == 'POST':
-        db_session.query(Education).filter_by(id=education_id).delete()
+        db_session.delete(education_to_delete)
         db_session.commit()
 
         return redirect(url_for('education.education_index'))
