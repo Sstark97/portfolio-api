@@ -51,3 +51,32 @@ def hobby_new():
         return redirect(url_for('hobby.hobby_index'))
 
     return render_template('forms.html', **context)
+
+@hobby.route('/hobby/edit/<int:hobby_id>', methods=['GET', 'POST'])
+@login_required
+def hobby_edit(hobby_id):
+    """ Página de edición de Hobbies """
+
+    hobby_data = db_session.query(Hobby).filter_by(id=hobby_id).first()
+
+    if request.method == 'POST':
+        hobby_form = HobbyForm(request.form)
+    else:
+        hobby_form = HobbyForm()
+        hobby_form.name.data = hobby_data.name
+
+    context = {
+        'title': 'Editar Hobby',
+        'form': hobby_form,
+        'action': url_for('hobby.hobby_edit', hobby_id=hobby_id),
+        'data': hobby_data,
+    }
+
+    if hobby_form.validate_on_submit():
+
+        hobby_data.name = hobby_form.name.data
+        db_session.commit()
+
+        return redirect(url_for('hobby.hobby_index'))
+
+    return render_template('forms.html', **context)
