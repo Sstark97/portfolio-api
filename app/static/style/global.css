@@ -5,10 +5,10 @@
 }
 
 :root {
-    --primary: #E9EFC0;
+    --primary: #f4fae6;
     --secondary: #B4E197;
     --third: #83BD75;
-    --fourth: #4E944F
+    --fourth: #5FD068;
 }
 
 body, html {
@@ -33,6 +33,10 @@ textarea {
 #user_nav {
     background: var(--fourth);
     color: #000;
+}
+
+#user_nav a img {
+    width: 4rem;
 }
 
 #delete_btn a, #add_data a, #trash_icon{
