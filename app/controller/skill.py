@@ -51,3 +51,33 @@ def skills_new():
         return redirect(url_for('skills.skills_index'))
 
     return render_template('forms.html', **context)
+
+@skill.route('/skills/edit/<int:skill_id>', methods=['GET', 'POST'])
+@login_required
+def skills_edit(skill_id):
+    """ Página de edición de skills """
+
+    skill_data = db_session.query(Skill).filter_by(id=skill_id).first()
+    if request.method == 'POST':
+        skills_form = SkillForm(request.form)
+    else:
+        skills_form = SkillForm(obj=skill_data)
+        skills_form.submit.label.text = 'Editar'
+
+    context = {
+        'title': 'Editar Habilidad',
+        'form': skills_form,
+        'action': url_for('skills.skills_edit', skill_id=skill_id),
+        'data': skill_data,
+    }
+
+    if skills_form.validate_on_submit():
+
+        skill_data.name = skills_form.name.data
+        skill_data.level = skills_form.level.data
+
+        db_session.commit()
+
+        return redirect(url_for('skills.skills_index'))
+
+    return render_template('forms.html', **context) 

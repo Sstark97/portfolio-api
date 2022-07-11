@@ -80,6 +80,7 @@ def work_edit(work_id):
         work_form.description.data = work_to_edit.description
         work_form.start_date.data = work_to_edit.start_date
         work_form.final_date.data = work_to_edit.final_date
+        work_form.submit.label.text = 'Editar'
 
     context = {
         'title': 'Editar Experiencia de Trabajo',

@@ -64,6 +64,7 @@ def hobby_edit(hobby_id):
     else:
         hobby_form = HobbyForm()
         hobby_form.name.data = hobby_data.name
+        hobby_form.submit.label.text = 'Editar'
 
     context = {
         'title': 'Editar Hobby',
