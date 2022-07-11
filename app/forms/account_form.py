@@ -10,7 +10,7 @@ class AccountForm(FlaskForm):
         DataRequired(message="El nombre es requerido"),
         Length(min=3, max=20, message="El nombre debe tener entre 3 y 20 caracteres")])
 
-    surnames = StringField('Apellidos', validators=[Length(
+    surname = StringField('Apellidos', validators=[Length(
         min=3, max=30, message="El apellido debe tener entre 3 y 20 caracteres")])
     
     presentation = TextAreaField('Presentación', [Length(min=10, max=1000)])
