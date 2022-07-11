@@ -86,6 +86,7 @@ def education_edit(education_id):
         education_form.start_date.data = education_to_edit.start_date
         education_form.final_date.data = education_to_edit.final_date
         education_form.course.data = education_to_edit.course
+        education_form.submit.label.text = 'Editar'
 
     context = {
         'title': 'Editar Datos Académicos',
