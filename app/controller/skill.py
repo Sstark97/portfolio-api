@@ -55,7 +55,7 @@ def skills_new():
 @skill.route('/skills/edit/<int:skill_id>', methods=['GET', 'POST'])
 @login_required
 def skills_edit(skill_id):
-    """ Página de edición de skills """
+    """ Página de edición de habilidad """
 
     skill_data = db_session.query(Skill).filter_by(id=skill_id).first()
     if request.method == 'POST':
@@ -81,3 +81,30 @@ def skills_edit(skill_id):
         return redirect(url_for('skills.skills_index'))
 
     return render_template('forms.html', **context) 
+
+@skill.route('/skills/delete/<int:skill_id>', methods=['GET', 'POST'])
+@login_required
+def skills_delete(skill_id):
+    """ Página para eliminar una habilidad """
+
+    skill_to_delete = db_session.query(Skill).filter_by(id=skill_id).first()
+    delete_form = DeleteDataForm()
+
+    context = {
+        'title': 'Eliminar Habilidades',
+        'type': 'Habilidad',
+        'name': skill_to_delete.name,
+        'delete': True,
+        'data': skill_to_delete,
+        'form': delete_form,
+        'action': url_for('skills.skills_delete', skill_id=skill_id),
+
+    }
+
+    if request.method == 'POST':
+        db_session.delete(skill_to_delete)
+        db_session.commit()
+
+        return redirect(url_for('skills.skills_index'))
+
+    return render_template('forms.html', **context)
