@@ -75,18 +75,9 @@ def education_edit(education_id):
 
     education_to_edit = db_session.query(
         Education).filter_by(id=education_id).first()
-
-    if request.method == 'POST':
-        education_form = EducationForm(request.form)
-    else:
-        education_form = EducationForm()
-        education_form.study.data = education_to_edit.study
-        education_form.education_institution.data = education_to_edit.education_institution
-        education_form.description.data = education_to_edit.description
-        education_form.start_date.data = education_to_edit.start_date
-        education_form.final_date.data = education_to_edit.final_date
-        education_form.course.data = education_to_edit.course
-        education_form.submit.label.text = 'Editar'
+    
+    education_form = education_form = EducationForm(request.form) if request.method == 'POST' else EducationForm(obj=education_to_edit)
+    education_form.submit.label.text = 'Editar'
 
     context = {
         'title': 'Editar Datos Académicos',
