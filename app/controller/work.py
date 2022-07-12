@@ -19,7 +19,8 @@ def work_index():
 
     context = {
         'title': 'Experiencia de Trabajo',
-        'type': 'Experiencia de Trabajo',        
+        'type': 'Experiencia de Trabajo',
+        'message': 'No hay Experiencia de Trabajo, añada una nueva',
         'action': url_for('work.work_new'),
         'delete_action': '/work/delete/',
         'edit_action': '/work/edit/',

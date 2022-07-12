@@ -22,6 +22,7 @@ def education_index():
     context = {
         'title': 'Datos Académicos',
         'type': 'Datos Académicos',
+        'message': 'No hay Datos Académicos, añada uno nuevo',
         'action': url_for('education.education_new'),
         'delete_action': '/education/delete/',
         'edit_action': '/education/edit/',

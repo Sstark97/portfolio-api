@@ -17,8 +17,9 @@ def hobby_index():
     hobby_fields = ['name']
 
     context = {
-        'title': 'Datos Académicos',
-        'type': 'Datos Académicos',
+        'title': 'Hobbies',
+        'type': 'Hobbies',
+        'message': 'No hay hobbies, añada uno nuevo',
         'action': url_for('hobby.hobby_new'),
         'delete_action': '/hobby/delete/',
         'edit_action': '/hobby/edit/',
