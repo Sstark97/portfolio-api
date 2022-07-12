@@ -48,12 +48,12 @@ def work_new():
         start_date = date(work_form.start_date.data.year,
                           work_form.start_date.data.month, work_form.start_date.data.day)
         final_date = None
-        current = False
+        current = True
 
         if work_form.final_date.data:
             final_date = date(work_form.final_date.data.year,
                               work_form.final_date.data.month, work_form.final_date.data.day)
-            current = True
+            current = False
 
         new_work = Work(position=work_form.position.data, company=work_form.company.data, description=work_form.description.data,
                     start_date=start_date, final_date=final_date, current=current, user_email=current_user.email)
@@ -86,12 +86,12 @@ def work_edit(work_id):
         start_date = date(work_form.start_date.data.year,
                           work_form.start_date.data.month, work_form.start_date.data.day)
         final_date = None
-        current = False
+        current = True
 
         if work_form.final_date.data:
             final_date = date(work_form.final_date.data.year,
                               work_form.final_date.data.month, work_form.final_date.data.day)
-            current = True
+            current = False
 
         work_to_edit.position = work_form.position.data
         work_to_edit.company = work_form.company.data
