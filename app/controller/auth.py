@@ -1,7 +1,7 @@
 """ Controlador que se encarga de la autenticación de los usuarios """
 from secrets import token_hex
 from flask import Blueprint, redirect, render_template, url_for
-from flask_login import login_user, login_required, logout_user, current_user
+from flask_login import login_user, login_required, logout_user
 from app.utils.hash_password import hash_password, check_password
 from app.utils.firebase_config import storage
 from app.utils.decorators import login_redirect
@@ -10,7 +10,6 @@ from app.model.db_config import db_session
 from app.model.models import User
 
 auth = Blueprint('auth', __name__)
-
 
 @auth.route('/login', methods=['GET', 'POST'])
 @login_redirect
@@ -38,7 +37,6 @@ def login():
         return render_template('forms.html', **context)
 
     return render_template('forms.html', **context)
-
 
 @auth.route('/register', methods=['GET', 'POST'])
 @login_redirect
@@ -73,7 +71,6 @@ def register():
         return redirect(url_for('home'))
 
     return render_template('forms.html', **context)
-
 
 @auth.route('/logout')
 @login_required
