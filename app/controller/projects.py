@@ -74,15 +74,8 @@ def projects_edit(project_id):
 
     project = Project.query.filter_by(id=project_id).first()
 
-    if request.method == 'POST':
-        project_form = ProjectForm(request.form)
-    else:
-        project_form = ProjectForm()
-        project_form.name.data = project.name
-        project_form.description.data = project.description
-        project_form.repository.data = project.repository
-        project_form.web.data = project.web
-        project_form.submit.label.text = 'Editar'
+    project_form = ProjectForm(request.form) if request.method == 'POST' else ProjectForm(obj=project)
+    project_form.submit.label.text = 'Editar'
     
 
     context = {
