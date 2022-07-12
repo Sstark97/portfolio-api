@@ -32,7 +32,7 @@ def login():
         if check_password(login_form.password.data, user.password):
 
             login_user(user, remember=login_form.remember_me.data)
-            return redirect(url_for('home'))
+            return redirect(url_for('index'))
 
         return render_template('forms.html', **context)
 
@@ -68,7 +68,7 @@ def register():
 
         login_user(new_user, remember=True)
 
-        return redirect(url_for('home'))
+        return redirect(url_for('index'))
 
     return render_template('forms.html', **context)
 

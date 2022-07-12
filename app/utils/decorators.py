@@ -7,8 +7,8 @@ def login_redirect(func):
     def wrapper(*args, **kwargs):
     
         if current_user.is_authenticated:
-            return redirect(url_for('home'))
+            return redirect(url_for('index'))
         return func(*args, **kwargs)
-        
+
     wrapper.__name__ = func.__name__  
     return wrapper

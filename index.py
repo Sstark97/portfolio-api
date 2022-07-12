@@ -19,7 +19,7 @@ def test():
 def index():
     """Página de Inicio"""
 
-    return render_template('index.html', title='Bienvenido')
+    return render_template('home.html', title='Bienvenido')
 
 @app.route('/home')
 @login_required
