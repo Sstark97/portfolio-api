@@ -3,7 +3,7 @@ from flask_restful import Resource
 from flask_login import current_user
 from app.model.db_config import db_session
 from app.model.models import Skill
-from app.model.schema.skills_schema import skills_schema
+from app.model.schema.schemas import skills_schema
 
 class Skills(Resource):
     """ Recurso para obtener las Habilidades de un Usuario """

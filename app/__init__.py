@@ -3,7 +3,7 @@ from flask import Flask
 from flask_restful import Api
 from flask_login import LoginManager
 from app.controller.controllers import auth, account, projects, work, education, hobby, skill
-from app.api.resources import Hobbies, Skills, WorkExperience, EducationExperience, Projects
+from app.api.resources import Hobbies, Skills, WorkExperience, EducationExperience, Projects, UserData
 from app.model.db_config import init_db
 from app.model.schema.schema_config import ma
 
@@ -26,6 +26,7 @@ def create_app():
     api.add_resource(WorkExperience, '/api/v1/work')
     api.add_resource(EducationExperience, '/api/v1/education')
     api.add_resource(Projects, '/api/v1/projects')
+    api.add_resource(UserData, '/api/v1/user')
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'

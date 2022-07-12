@@ -3,7 +3,7 @@ from flask_restful import Resource
 from flask_login import current_user
 from app.model.db_config import db_session
 from app.model.models import Work
-from app.model.schema.work_schema import work_schema
+from app.model.schema.schemas import work_schema
 
 class WorkExperience(Resource):
     """ Recurso para la Experiencia laboral de un Usuario """

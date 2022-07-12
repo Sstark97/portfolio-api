@@ -3,7 +3,7 @@ from flask_restful import Resource
 from flask_login import current_user
 from app.model.db_config import db_session
 from app.model.models import Project
-from app.model.schema.project_schema import project_schema
+from app.model.schema.schemas import project_schema
 
 class Projects(Resource):
     """ Recurso para los Proyectos de un Usuario """
