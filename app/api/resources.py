@@ -3,3 +3,4 @@ from app.api.hobbies import Hobbies
 from app.api.skill import Skills
 from app.api.work import WorkExperience
 from app.api.education import EducationExperience
+from app.api.project import Projects
