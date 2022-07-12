@@ -58,11 +58,9 @@ def skills_edit(skill_id):
     """ Página de edición de habilidad """
 
     skill_data = db_session.query(Skill).filter_by(id=skill_id).first()
-    if request.method == 'POST':
-        skills_form = SkillForm(request.form)
-    else:
-        skills_form = SkillForm(obj=skill_data)
-        skills_form.submit.label.text = 'Editar'
+
+    skills_form = SkillForm(request.form) if request.method == 'POST' else SkillForm(obj=skill_data)
+    skills_form.submit.label.text = 'Editar'
 
     context = {
         'title': 'Editar Habilidad',
