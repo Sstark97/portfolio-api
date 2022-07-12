@@ -1,9 +1,9 @@
-""" Archivo que define el modelo de Eduación"""
+""" Archivo que define el modelo de Educación"""
 from sqlalchemy import Column, Integer, String, Boolean, Date, ForeignKey, CheckConstraint
 from app.model.db_config import Base
 
 class Education(Base):
-    """Clase que define el Modelo de Eduación"""
+    """Clase que define el Modelo de Educación"""
     __tablename__ = 'education'
 
     def __init__(self, study, education_institution, description, start_date, current, course, user_email, final_date=None):
