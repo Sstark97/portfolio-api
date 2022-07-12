@@ -19,6 +19,7 @@ def skills_index():
     context = {
         'title': 'Habilidades',
         'type': 'Habilidades',
+        'message': 'No hay habilidades, añada una nueva',
         'action': url_for('skills.skills_new'),
         'delete_action': '/skills/delete/',
         'edit_action': '/skills/edit/',

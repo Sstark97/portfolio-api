@@ -74,6 +74,8 @@
                                 {% else %}
                                     <td>Finalizado</td>
                                 {% endif %}
+                            {% elif field in ("final_date") and not row[field] %}
+                                <td>No hay fecha de Finalización</td>
                             {% else %}
                                 <td>{{ row[field] }}</td>
                             {% endif %}

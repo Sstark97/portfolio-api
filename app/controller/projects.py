@@ -22,6 +22,7 @@ def projects_index():
     context = {
         'title': 'Proyectos',
         'type': 'proyecto',
+        'message': 'No hay proyectos, añada uno nuevo',
         'action': url_for('projects.projects_new'),
         'delete_action': '/projects/delete/',
         'edit_action': '/projects/edit/',

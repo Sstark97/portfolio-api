@@ -30,6 +30,10 @@ textarea {
     height: 20vh !important;
 }
 
+.btn-login {
+    background: var(--secondary);
+}
+
 #user_nav {
     background: var(--fourth);
     color: #000;

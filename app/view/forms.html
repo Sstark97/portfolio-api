@@ -31,6 +31,13 @@
             {{ render_form(form) }}
         </form>
 
+        {% if 'login' in request.url_rule.rule %}
+            <div class="my-3">
+                <span>Si aún no estás registrado, </span>
+                <a href="{{ url_for('auth.register') }}">registrate aquí</a>
+            </div>
+        {% endif %}
+
     </main>
 
 {% endblock content %}

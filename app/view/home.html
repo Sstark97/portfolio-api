@@ -1,14 +1,28 @@
 {% extends 'base.html'%}
 
 {% block title %}
-    {{super()}}
-    {{ title }}
+{{super()}}
+{{ title }}
 {% endblock %}
 
 {% block content %}
 
-    {% include 'navbar.html' %}
-    
-    <h1>Home</h1>
+{% include 'navbar.html' %}
+
+<main>
+    <div class="mb-3">
+        <div class="container-xxl bd-gutter">
+            <div class="col-md-8 mx-auto text-center">
+                <img src="/static/img/portfolio.svg" width="200" height="165" alt="Bootstrap"
+                    class="d-block mx-auto mb-3">
+                <h1 class="mb-3 fw-semibold">Guarda tus datos con &nbsp;PortFolio API</h1>
+                <p class="lead mb-4">
+                    Guarda tu portfolio en un único sitio para poder utilizarlo donde necesites,
+                    utiliza la web para añadir todos tus datos y llama a la API desde tus proyectos
+                    para utilizar los datos de tu PortFolio.
+                </p>
+            </div>
+        </div>
+</main>
 
 {% endblock content %}
