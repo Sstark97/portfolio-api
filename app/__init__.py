@@ -1,7 +1,9 @@
 """Archivo que crea la Aplicación de Flask"""
 from flask import Flask
+from flask_restful import Api
 from flask_login import LoginManager
 from app.controller.controllers import auth, account, projects, work, education, hobby, skill
+from app.api.resources import HelloWorld
 from app.model.db_config import init_db
 
 def create_app():
@@ -16,6 +18,9 @@ def create_app():
     app.register_blueprint(education)
     app.register_blueprint(hobby)
     app.register_blueprint(skill)
+
+    api = Api(app)
+    api.add_resource(HelloWorld, '/api/v1/hello')
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
