@@ -71,16 +71,8 @@ def work_edit(work_id):
 
     work_to_edit = db_session.query(Work).filter_by(id=work_id).first()
 
-    if request.method == 'POST':
-        work_form = WorkForm(request.form)
-    else:
-        work_form = WorkForm()
-        work_form.position.data = work_to_edit.position
-        work_form.company.data = work_to_edit.company
-        work_form.description.data = work_to_edit.description
-        work_form.start_date.data = work_to_edit.start_date
-        work_form.final_date.data = work_to_edit.final_date
-        work_form.submit.label.text = 'Editar'
+    work_form = WorkForm(request.form) if request.method == 'POST' else WorkForm(obj=work_to_edit)
+    work_form.submit.label.text = 'Editar'
 
     context = {
         'title': 'Editar Experiencia de Trabajo',

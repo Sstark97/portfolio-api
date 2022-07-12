@@ -4,6 +4,7 @@ from flask import Blueprint, redirect, render_template, url_for
 from flask_login import login_user, login_required, logout_user, current_user
 from app.utils.hash_password import hash_password, check_password
 from app.utils.firebase_config import storage
+from app.utils.decorators import login_redirect
 from app.forms.forms import RegisterForm, LoginForm
 from app.model.db_config import db_session
 from app.model.models import User
@@ -12,11 +13,9 @@ auth = Blueprint('auth', __name__)
 
 
 @auth.route('/login', methods=['GET', 'POST'])
+@login_redirect
 def login():
     """Página de Login"""
-
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
 
     login_form = LoginForm()
 
@@ -42,11 +41,9 @@ def login():
 
 
 @auth.route('/register', methods=['GET', 'POST'])
+@login_redirect
 def register():
     """Página de Registro"""
-
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
 
     register_form = RegisterForm()
 

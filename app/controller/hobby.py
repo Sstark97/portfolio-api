@@ -59,12 +59,8 @@ def hobby_edit(hobby_id):
 
     hobby_data = db_session.query(Hobby).filter_by(id=hobby_id).first()
 
-    if request.method == 'POST':
-        hobby_form = HobbyForm(request.form)
-    else:
-        hobby_form = HobbyForm()
-        hobby_form.name.data = hobby_data.name
-        hobby_form.submit.label.text = 'Editar'
+    hobby_form = HobbyForm(request.form) if request.methods == 'POST' else HobbyForm(obj=hobby_data)
+    hobby_form.submit.label.text = 'Editar'
 
     context = {
         'title': 'Editar Hobby',

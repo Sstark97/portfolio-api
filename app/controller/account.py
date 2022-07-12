@@ -14,15 +14,7 @@ account = Blueprint('account', __name__)
 @login_required
 def profile():
     """Página de Acerca de"""
-    if request.method == 'POST':
-        form = AccountForm(request.form)
-    else: 
-        form = AccountForm()
-        form.name.data = current_user.name
-        form.surnames.data = current_user.surname
-        form.presentation.data = current_user.presentation
-        form.adress.data = current_user.adress
-        form.phone.data = current_user.phone
+    form = AccountForm(request.form) if request.method == 'POST' else AccountForm(obj=current_user)
 
     context = {
         'title': 'Cuenta',
@@ -43,7 +35,7 @@ def profile():
         db_session.query(User).filter(User.email == current_user.email).update(
             {
                 'name': form.name.data,
-                'surname': form.surnames.data,
+                'surname': form.surname.data,
                 'presentation': form.presentation.data,
                 'adress': form.adress.data,
                 'phone': form.phone.data,
