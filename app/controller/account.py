@@ -1,5 +1,8 @@
 """ Controlador para manejar la cuenta del usuario """
 from secrets import token_hex
+from os import getenv
+from dotenv import load_dotenv
+from jwt import encode
 from flask import Blueprint, render_template, redirect, url_for, request
 from flask_login import login_required, logout_user, current_user
 from app.forms.forms import AccountForm, DeleteAccountForm
@@ -53,7 +56,8 @@ def profile():
 @login_required
 def token():
     """Genera un token de acceso para el usuario"""
-    new_token = token_hex(16)
+    load_dotenv()
+    new_token = encode({ 'public_id': current_user.name }, getenv('SECRET_KEY'))
     db_session.query(User).filter(User.email == current_user.email).update( {'api_token': new_token} )
     db_session.commit()
 

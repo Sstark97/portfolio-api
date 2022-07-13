@@ -26,7 +26,7 @@
                     <span class="text-black-50">{{ current_user.email }}</span>
                     <div class="col-md-12">
                         <span class="text-center">Api Token</span>
-                        <p class="text-center text-black-50">{{ current_user.api_token }}</p>
+                        <p class="text-black-50" style="word-break: break-all;">{{ current_user.api_token }}</p>
                     </div>
                     <form class="col-md-12" action=" {{ token_action }} ">
                         <button class="btn form-control" type="submit">Generar Api Token</button>
