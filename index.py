@@ -22,5 +22,7 @@ def index():
     return render_template('home.html', title='Bienvenido')
 
 if __name__ == '__main__':
-    
-    app.run()
+    if environ.get('APP_LOCATION') == 'heroku':
+        app.run(host="0.0.0.0", port=int(environ.get("PORT", 5000)))
+    else:
+        app.run(host='localhost', port=8080, debug=True)
