@@ -31,7 +31,9 @@ def profile():
         user_avatar = request.files.get('avatar') if request.files.get('avatar') else None
 
         if user_avatar:
-            storage.delete(f'users/{current_user.email}/avatar', token=token_hex(16))
+            if current_user.avatar:
+                storage.delete(f'users/{current_user.email}/avatar', token=token_hex(16))
+
             storage.child(f'users/{current_user.email}/avatar').put(user_avatar)
             avatar_path = storage.child(f'users/{current_user.email}/avatar').get_url(token=token_hex(16))
 
@@ -75,7 +77,10 @@ def delete_account():
     }
 
     if form.validate_on_submit():
-        storage.delete(f'users/{current_user.email}/avatar', token=token_hex(16))
+        
+        if current_user.avatar:
+            storage.delete(f'users/{current_user.email}/avatar', token=token_hex(16))
+            
         db_session.query(User).filter(User.email == current_user.email).delete()
         db_session.commit()
         logout_user()
