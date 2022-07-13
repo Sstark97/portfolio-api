@@ -1,7 +1,6 @@
 """ Ruta para los Hobbies de un Usuario """
 from flask import request
 from flask_restful import Resource
-from flask_login import current_user
 from app.model.db_config import db_session
 from app.model.models import Hobby, User
 from app.model.schema.schemas import hobbies_schema
