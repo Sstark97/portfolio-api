@@ -41,7 +41,4 @@ def index():
 
 
 if __name__ == '__main__':
-    if environ.get('APP_LOCATION') == 'heroku':
-        app.run(host="0.0.0.0", port=int(environ.get("PORT", 5000)))
-    else:
-        app.run(port=3000, debug=True)
+    app.run()
