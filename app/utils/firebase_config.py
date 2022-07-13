@@ -3,6 +3,7 @@ from os import getenv
 from dotenv import load_dotenv
 from pyrebase import initialize_app
 
+# Cargamos las variables de entorno
 load_dotenv()
 
 config = {
