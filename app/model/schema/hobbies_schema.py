@@ -1,9 +1,9 @@
-""" Esquema de las Habilidades de un Usuario """
+""" Esquema de los Hobbies de un Usuario """
 from app.model.schema.schema_config import ma
 from app.model.models import Hobby
 
 class HobbieSchema(ma.SQLAlchemySchema):
-    """ Esquema de las Habilidades de un Usuario """
+    """ Esquema de los Hobbies de un Usuario """
 
     class Meta:
         """ Meta """

@@ -50,12 +50,12 @@ def education_new():
         start_date = date(education_form.start_date.data.year,
                           education_form.start_date.data.month, education_form.start_date.data.day)
         final_date = None
-        current = False
+        current = True
 
         if education_form.final_date.data:
             final_date = date(education_form.final_date.data.year,
                               education_form.final_date.data.month, education_form.final_date.data.day)
-            current = True
+            current = False
 
         new_education = Education(study=education_form.study.data, education_institution=education_form.education_institution.data, 
                                     description=education_form.description.data, start_date=start_date, final_date=final_date, 
@@ -91,12 +91,12 @@ def education_edit(education_id):
         start_date = date(education_form.start_date.data.year,
                           education_form.start_date.data.month, education_form.start_date.data.day)
         final_date = None
-        current = False
+        current = True
 
         if education_form.final_date.data:
             final_date = date(education_form.final_date.data.year,
                               education_form.final_date.data.month, education_form.final_date.data.day)
-            current = True
+            current = False
 
         education_to_edit.study = education_form.study.data
         education_to_edit.education_institution = education_form.education_institution.data

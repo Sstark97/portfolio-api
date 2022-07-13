@@ -69,8 +69,8 @@
                                     <span class="text-decoration-none text-black-50" >No hay enlace</span>
                                 </td>
                             {% elif field in ("current") %}
-                                {% if row[field] == 0 %}
-                                    <td>Trabajo Actual</td>
+                                {% if row[field] == 1 %}
+                                    <td>Actual</td>
                                 {% else %}
                                     <td>Finalizado</td>
                                 {% endif %}
