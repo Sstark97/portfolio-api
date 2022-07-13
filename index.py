@@ -41,5 +41,5 @@ def index():
 
 
 if __name__ == '__main__':
-    """ Ejecuta la App """
+    
     app.run()
