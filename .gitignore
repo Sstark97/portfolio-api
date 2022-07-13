@@ -1,5 +1,4 @@
 ### excluding files
-*.db
 
 ### dotenv ###
 .env

@@ -1,4 +1,5 @@
 """ Archivo inicial de la App de Flask"""
+from os import environ
 import unittest
 from flask import render_template
 from app import create_app
@@ -40,4 +41,7 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(port=3000, debug=True)
+    if environ.get('APP_LOCATION') == 'heroku':
+        app.run(host="0.0.0.0", port=int(environ.get("PORT", 5000)))
+    else:
+        app.run(port=3000, debug=True)
