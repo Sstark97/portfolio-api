@@ -20,7 +20,7 @@ def create_app():
     app.register_blueprint(hobby)
     app.register_blueprint(skill)
 
-    api = Api(app)
+    api = Api(app, catch_all_404s=True)
     api.add_resource(Hobbies, '/api/v1/hobbies')
     api.add_resource(Skills, '/api/v1/skills')
     api.add_resource(WorkExperience, '/api/v1/work')

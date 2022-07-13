@@ -12,6 +12,7 @@ class Projects(Resource):
     @token_required
     def get(self):
         """ Método de Obtención de todos los Proyectos de un Usuario """
+        
         token = request.headers['x-access-tokens']
         user_projects = db_session.query(Project).filter(Project.user_email == User.email).filter(User.api_token == token).all()
 
