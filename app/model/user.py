@@ -28,11 +28,11 @@ class User(UserMixin, Base):
     password = Column(String(100), nullable=False)
     avatar = Column(String(100))
     api_token = Column(String(100))
-    hobbies = relationship('Hobby', backref='user', lazy=True)
-    skills = relationship('Skill', backref='user', lazy=True)
-    work = relationship('Work', backref='user', lazy=True)
-    education = relationship('Education', backref='user', lazy=True)
-    project = relationship('Project', backref='user', lazy=True)
+    hobbies = relationship('Hobby', backref='user', lazy=True, cascade='all, delete-orphan')
+    skills = relationship('Skill', backref='user', lazy=True, cascade='all, delete-orphan')
+    work = relationship('Work', backref='user', lazy=True, cascade='all, delete-orphan')
+    education = relationship('Education', backref='user', lazy=True, cascade='all, delete-orphan')
+    project = relationship('Project', backref='user', lazy=True, cascade='all, delete-orphan')
 
     def get_id(self):
         return self.email
