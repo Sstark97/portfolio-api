@@ -1,5 +1,8 @@
 """ Controlador que se encarga de la autenticación de los usuarios """
 from secrets import token_hex
+from os import getenv
+from dotenv import load_dotenv
+from jwt import encode
 from flask import Blueprint, redirect, render_template, url_for
 from flask_login import login_user, login_required, logout_user
 from app.utils.hash_password import hash_password, check_password
@@ -59,9 +62,12 @@ def register():
         if user_avatar:
             storage.child(f'users/{register_form.email.data}/avatar').put(user_avatar)
             user_avatar_path = storage.child(f'users/{register_form.email.data}/avatar').get_url(token=token_hex(16))
+        
+        load_dotenv()
+        token = encode({ 'public_id': register_form.name.data }, getenv('SECRET_KEY'))
 
         new_user = User(register_form.email.data, register_form.name.data, register_form.surnames.data, register_form.adress.data,
-                        register_form.phone.data, hash_password(register_form.password.data), token_hex(16), 
+                        register_form.phone.data, hash_password(register_form.password.data), token, 
                         presentation=register_form.presentation.data, avatar=user_avatar_path)
         db_session.add(new_user)
         db_session.commit()
