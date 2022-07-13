@@ -49,11 +49,11 @@ def projects_new():
     if project_form.validate_on_submit():
         project_img = project_form.project_img.data if project_form.project_img.data else None
         project_img_path = None
-        user_projects = Project.query.filter_by(user_email=current_user.email).all()
+        projects_data = Project.query.all()
         project_id = 1
 
-        if len(user_projects) > 0:
-            project_id = user_projects[-1].id + 1
+        if len(projects_data) > 0:
+            project_id = projects_data[-1].id + 1
 
         if project_img:
             storage.child(f'users/{current_user.email}/project/project_{project_id}').put(project_img)
@@ -73,7 +73,10 @@ def projects_new():
 def projects_edit(project_id):
     """ Página para editar un Proyecto """
 
-    project = Project.query.filter_by(id=project_id).first()
+    project = db_session.query(Project).filter_by(id=project_id).filter(Project.user_email == current_user.email).first()
+
+    if not project:
+        return redirect(url_for('projects.projects_index'))
 
     project_form = ProjectForm(request.form) if request.method == 'POST' else ProjectForm(obj=project)
     project_form.submit.label.text = 'Editar'
