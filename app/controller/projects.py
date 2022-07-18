@@ -56,8 +56,8 @@ def projects_new():
             project_id = projects_data[-1].id + 1
 
         if project_img:
-            storage.child(f'users/{current_user.email}/project/project_{project_id}').put(project_img)
-            project_img_path = storage.child(f'users/{current_user.email}/project/project_{project_id}').get_url(token=token_hex(16))
+            storage.child(f'users/{current_user.email}/projects/project_{project_id}').put(project_img)
+            project_img_path = storage.child(f'users/{current_user.email}/projects/project_{project_id}').get_url(token=token_hex(16))
 
         project = Project(project_form.name.data, project_form.description.data,
                           project_form.repository.data, current_user.email, project_img_path, project_form.web.data)
@@ -93,9 +93,10 @@ def projects_edit(project_id):
         project_img = request.files.get('project_img') if request.files.get('project_img') else None
 
         if project_img:
-            storage.delete(f'users/{current_user.email}/project/project_{project_id}', token=token_hex(16))
-            storage.child(f'users/{current_user.email}/project/project_{project_id}').put(project_img)
-            project_path = storage.child(f'users/{current_user.email}/project/project_{project_id}').get_url(token=token_hex(16))
+            if project.image:
+                storage.delete(f'users/{current_user.email}/projects/project_{project_id}', token=token_hex(16))
+            storage.child(f'users/{current_user.email}/projects/project_{project_id}').put(project_img)
+            project_path = storage.child(f'users/{current_user.email}/projects/project_{project_id}').get_url(token=token_hex(16))
         
         project.name = project_form.name.data
         project.description = project_form.description.data
@@ -130,7 +131,7 @@ def projects_delete(project_id):
     
     if delete_form.validate_on_submit():
         if project.image:
-            storage.delete(f'users/{current_user.email}/project/project_{project_id}', token=token_hex(16))
+            storage.delete(f'users/{current_user.email}/projects/project_{project_id}', token=token_hex(16))
 
         db_session.delete(project)
         db_session.commit()
