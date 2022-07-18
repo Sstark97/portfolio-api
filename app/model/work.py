@@ -1,5 +1,6 @@
 """ Archivo que define el modelo de Trabajo"""
 from sqlalchemy import Column, Integer, String, Boolean, Date, ForeignKey, CheckConstraint
+from sqlalchemy.orm import relationship
 from app.model.db_config import Base
 
 class Work(Base):
@@ -23,4 +24,5 @@ class Work(Base):
     final_date = Column(Date, CheckConstraint('final_date IS NULL OR final_date >= start_date', name='work_date_constraint'))
     current = Column(Boolean, default=False)
 
-    user_email = Column(String(100), ForeignKey('user.email'), nullable=False)
+    user_email = Column(String(100), ForeignKey('user.email', ondelete="CASCADE"), nullable=False)
+    user_work = relationship('User', back_populates='work')

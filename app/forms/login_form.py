@@ -6,6 +6,7 @@ from app.utils.hash_password import check_password
 from app.model.models import User
 from app.model.db_config import db_session
 
+
 class LoginForm(FlaskForm):
     """Clase para la realización del formulario de inicio"""
     email = StringField('Correo', [
@@ -21,19 +22,25 @@ class LoginForm(FlaskForm):
 
         if not user_email:
             raise ValidationError(f'El email {email.data} no existe')
-    
+
     password = PasswordField('Contraseña', [
         DataRequired()
     ])
 
-    def validate_password(self,password):
+    def validate_password(self, password):
         """Función que valida la contraseña"""
 
-        passwd = db_session.query(User).filter_by(email=self.email.data).first().password
+        passwd = db_session.query(User).filter_by(email=self.email.data).first(
+        ).password if db_session.query(User).filter_by(email=self.email.data).first() else None
+
+        if not passwd:
+            raise ValidationError(f'El email {self.email.data} no existe')
 
         if not check_password(password.data, passwd):
-            raise ValidationError('La contraseña no es valida')
+            raise ValidationError('La contraseña es incorrecta')
 
+        if passwd and not check_password(password.data, passwd):
+            raise ValidationError('La contraseña no es valida')
 
     remember_me = BooleanField('Recordarme')
 

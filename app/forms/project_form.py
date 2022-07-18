@@ -11,13 +11,6 @@ class ProjectForm(FlaskForm):
     name = StringField('Nombre', validators=[
     DataRequired(message="El nombre es requerido"),
     Length(min=3, max=20, message="El nombre debe tener entre 3 y 20 caracteres")])
-
-    def validate_name(self,name):
-        """ Función que valida que el nombre de un Proyecto no este repetido """
-        proyect_name = db_session.query(Project).filter_by(name=name.data, user_email=current_user.email).first()
-
-        if proyect_name:
-            raise ValidationError(f'El nombre {name.data} ya existe')
     
     description = TextAreaField('Descripción', [Length(min=10, max=1000)])
 

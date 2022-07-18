@@ -1,5 +1,6 @@
 """ Archivo que define el modelo de Hobbies"""
 from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
 from app.model.db_config import Base
 
 class Hobby(Base):
@@ -12,4 +13,6 @@ class Hobby(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(100), nullable=False)
-    user_email = Column(String(100), ForeignKey('user.email'), nullable=False)
+
+    user_email = Column(String(100), ForeignKey('user.email', ondelete="CASCADE"), nullable=False)
+    user_hobby = relationship('User', back_populates='hobbies')    

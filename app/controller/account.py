@@ -9,7 +9,7 @@ from app.forms.forms import AccountForm, DeleteAccountForm
 from app.utils.hash_password import hash_password
 from app.utils.firebase_config import storage
 from app.model.db_config import db_session
-from app.model.models import User
+from app.model.models import User, Project
 
 account = Blueprint('account', __name__)
 
@@ -31,7 +31,9 @@ def profile():
         user_avatar = request.files.get('avatar') if request.files.get('avatar') else None
 
         if user_avatar:
-            storage.delete(f'users/{current_user.email}/avatar', token=token_hex(16))
+            if current_user.avatar:
+                storage.delete(f'users/{current_user.email}/avatar', token=token_hex(16))
+
             storage.child(f'users/{current_user.email}/avatar').put(user_avatar)
             avatar_path = storage.child(f'users/{current_user.email}/avatar').get_url(token=token_hex(16))
 
@@ -74,9 +76,18 @@ def delete_account():
         'form': form,
     }
 
+
     if form.validate_on_submit():
-        storage.delete(f'users/{current_user.email}/avatar', token=token_hex(16))
-        db_session.query(User).filter(User.email == current_user.email).delete()
+        projects = db_session.query(Project).filter(Project.user_email == current_user.email).all()
+        
+        if current_user.avatar:
+            storage.delete(f'users/{current_user.email}/avatar', token=token_hex(16))
+        
+        if len(projects) > 0:
+            for project in projects:
+                storage.delete(f'users/{current_user.email}/projects/project_{project.id}', token=token_hex(16))
+            
+        db_session.delete(current_user)
         db_session.commit()
         logout_user()
 

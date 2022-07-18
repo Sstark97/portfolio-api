@@ -75,7 +75,9 @@ def education_edit(education_id):
     """ Página de edición de Datos Académicos """
 
     education_to_edit = db_session.query(
-        Education).filter_by(id=education_id).first()
+        Education).filter_by(id=education_id).filter(Education.user_email == current_user.email).first()
+    if not education_to_edit:
+        return redirect(url_for('education.education_index'))
     
     education_form = education_form = EducationForm(request.form) if request.method == 'POST' else EducationForm(obj=education_to_edit)
     education_form.submit.label.text = 'Editar'
@@ -117,7 +119,11 @@ def education_edit(education_id):
 def education_delete(education_id):
     """ Página de eliminación de Datos Académicos """
 
-    education_to_delete = db_session.query(Education).filter_by(id=education_id).first()
+    education_to_delete = db_session.query(
+        Education).filter_by(id=education_id).filter(Education.user_email == current_user.email).first()
+    if not education_to_delete:
+        return redirect(url_for('education.education_index'))
+
     delete_form = DeleteDataForm()
 
     context = {
