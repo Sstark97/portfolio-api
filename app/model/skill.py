@@ -1,5 +1,6 @@
 """ Archivo que define el modelo de Habilidades"""
 from sqlalchemy import Column, Integer, String, ForeignKey, CheckConstraint
+from sqlalchemy.orm import relationship
 from app.model.db_config import Base
 
 class Skill(Base):
@@ -14,4 +15,7 @@ class Skill(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(100), nullable=False)
     level = Column(Integer, CheckConstraint('level > 0 AND level <= 10'), nullable=False)
-    user_email = Column(String(100), ForeignKey('user.email'), nullable=False)
+
+    user_email = Column(String(100), ForeignKey('user.email', ondelete="CASCADE"), nullable=False)
+    user_skill = relationship('User', back_populates='skills')
+    

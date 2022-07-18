@@ -1,5 +1,6 @@
 """ Archivo que define el modelo de Proyectos"""
 from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
 from app.model.db_config import Base
 
 class Project(Base):
@@ -20,4 +21,6 @@ class Project(Base):
     image = Column(String(100))
     web = Column(String(100))
     repository = Column(String(100), nullable=False)
-    user_email = Column(String(100), ForeignKey('user.email'), nullable=False)
+
+    user_email = Column(String(100), ForeignKey('user.email', ondelete="CASCADE"), nullable=False)
+    user_project = relationship('User', back_populates='project')
