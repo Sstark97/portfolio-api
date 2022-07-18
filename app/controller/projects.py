@@ -113,7 +113,10 @@ def projects_edit(project_id):
 def projects_delete(project_id):
     """ Página para eliminar un Proyecto """
 
-    project = Project.query.filter_by(id=project_id).first()
+    project = db_session.query(Project).filter_by(id=project_id).filter(Project.user_email == current_user.email).first()
+    if not project:
+        return redirect(url_for('projects.projects_index'))
+
     delete_form = DeleteDataForm()
 
     context = {
