@@ -58,7 +58,9 @@ def skills_new():
 def skills_edit(skill_id):
     """ Página de edición de habilidad """
 
-    skill_data = db_session.query(Skill).filter_by(id=skill_id).first()
+    skill_data = db_session.query(Skill).filter_by(id=skill_id).filter(Skill.user_email == current_user.email).first()
+    if not skill_data:
+        return redirect(url_for('skills.skills_index'))
 
     skills_form = SkillForm(request.form) if request.method == 'POST' else SkillForm(obj=skill_data)
     skills_form.submit.label.text = 'Editar'
@@ -86,7 +88,9 @@ def skills_edit(skill_id):
 def skills_delete(skill_id):
     """ Página para eliminar una habilidad """
 
-    skill_to_delete = db_session.query(Skill).filter_by(id=skill_id).first()
+    skill_to_delete = db_session.query(Skill).filter_by(id=skill_id).filter(Skill.user_email == current_user.email).first()
+    if not skill_to_delete:
+        return redirect(url_for('skills.skills_index'))
     delete_form = DeleteDataForm()
 
     context = {

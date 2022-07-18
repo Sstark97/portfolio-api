@@ -58,9 +58,11 @@ def hobby_new():
 def hobby_edit(hobby_id):
     """ Página de edición de Hobbies """
 
-    hobby_data = db_session.query(Hobby).filter_by(id=hobby_id).first()
+    hobby_data = db_session.query(Hobby).filter_by(id=hobby_id).filter(Hobby.user_email == current_user.email).first()
+    if not hobby_data:
+        return redirect(url_for('hobby.hobby_index'))
 
-    hobby_form = HobbyForm(request.form) if request.methods == 'POST' else HobbyForm(obj=hobby_data)
+    hobby_form = HobbyForm(request.form) if request.method == 'POST' else HobbyForm(obj=hobby_data)
     hobby_form.submit.label.text = 'Editar'
 
     context = {
@@ -84,7 +86,9 @@ def hobby_edit(hobby_id):
 def hobby_delete(hobby_id):
     """ Página de eliminación de Hobbies """
 
-    hobby_data = db_session.query(Hobby).filter_by(id=hobby_id).first()
+    hobby_data = db_session.query(Hobby).filter_by(id=hobby_id).filter(Hobby.user_email == current_user.email).first()
+    if not hobby_data:
+        return redirect(url_for('hobby.hobby_index'))
 
     context = {
         'title': 'Eliminar Hobby',
