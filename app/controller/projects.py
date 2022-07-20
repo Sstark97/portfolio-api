@@ -6,6 +6,7 @@ from app.model.models import Project
 from app.model.db_config import db_session
 from app.forms.forms import ProjectForm, DeleteDataForm
 from app.utils.firebase_config import storage
+from app.utils.const import project_fields
 
 projects = Blueprint('projects', __name__)
 
@@ -17,7 +18,6 @@ def projects_index():
 
     user_projects = Project.query.filter_by(
         user_email=current_user.email).all()
-    project_fields = ['name', 'description', 'repository', 'user_email', 'image', 'web',]
 
     context = {
         'title': 'Proyectos',

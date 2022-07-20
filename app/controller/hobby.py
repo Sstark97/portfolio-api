@@ -4,6 +4,7 @@ from flask_login import login_required, current_user
 from app.forms.forms import HobbyForm, DeleteDataForm
 from app.model.db_config import db_session
 from app.model.models import Hobby
+from app.utils.const import hobby_fields
 
 hobby = Blueprint('hobby', __name__)
 
@@ -14,7 +15,6 @@ def hobby_index():
 
     user_hobbies = db_session.query(Hobby).filter_by(
         user_email=current_user.email).all()
-    hobby_fields = ['name']
 
     context = {
         'title': 'Hobbies',
