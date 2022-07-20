@@ -1,5 +1,6 @@
 """ Archivo que define el modelo de Educación"""
 from sqlalchemy import Column, Integer, String, Boolean, Date, ForeignKey, CheckConstraint
+from sqlalchemy.orm import relationship
 from app.model.db_config import Base
 
 class Education(Base):
@@ -24,5 +25,7 @@ class Education(Base):
     final_date = Column(Date, CheckConstraint('final_date IS NULL OR final_date >= start_date', name='work_date_constraint'))
     current = Column(Boolean, default=False)
     course = Column(Integer)
-    user_email = Column(String(100), ForeignKey('user.email'), nullable=False)
+
+    user_email = Column(String(100), ForeignKey('user.email', ondelete="CASCADE"), nullable=False)
+    user_education = relationship('User', back_populates='education')
     

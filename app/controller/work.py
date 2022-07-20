@@ -70,7 +70,9 @@ def work_new():
 def work_edit(work_id):
     """ Página de edición de experiencia de trabajo """
 
-    work_to_edit = db_session.query(Work).filter_by(id=work_id).first()
+    work_to_edit = db_session.query(Work).filter_by(id=work_id).filter(Work.user_email == current_user.email).first()
+    if not work_to_edit:
+        return redirect(url_for('work.work_index'))
 
     work_form = WorkForm(request.form) if request.method == 'POST' else WorkForm(obj=work_to_edit)
     work_form.submit.label.text = 'Editar'
@@ -110,7 +112,9 @@ def work_edit(work_id):
 def work_delete(work_id):
     """ Página de eliminación de experiencia de trabajo """
 
-    work_to_delete = db_session.query(Work).filter_by(id=work_id).first()
+    work_to_delete = db_session.query(Work).filter_by(id=work_id).filter(Work.user_email == current_user.email).first()
+    if not work_to_delete:
+        return redirect(url_for('work.work_index'))
     delete_form = DeleteDataForm()
 
     context = {

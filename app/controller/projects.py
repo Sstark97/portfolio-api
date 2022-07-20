@@ -49,15 +49,15 @@ def projects_new():
     if project_form.validate_on_submit():
         project_img = project_form.project_img.data if project_form.project_img.data else None
         project_img_path = None
-        user_projects = Project.query.filter_by(user_email=current_user.email).all()
+        projects_data = Project.query.all()
         project_id = 1
 
-        if len(user_projects) > 0:
-            project_id = user_projects[-1].id + 1
+        if len(projects_data) > 0:
+            project_id = projects_data[-1].id + 1
 
         if project_img:
-            storage.child(f'users/{current_user.email}/project/project_{project_id}').put(project_img)
-            project_img_path = storage.child(f'users/{current_user.email}/project/project_{project_id}').get_url(token=token_hex(16))
+            storage.child(f'users/{current_user.email}/projects/project_{project_id}').put(project_img)
+            project_img_path = storage.child(f'users/{current_user.email}/projects/project_{project_id}').get_url(token=token_hex(16))
 
         project = Project(project_form.name.data, project_form.description.data,
                           project_form.repository.data, current_user.email, project_img_path, project_form.web.data)
@@ -73,7 +73,10 @@ def projects_new():
 def projects_edit(project_id):
     """ Página para editar un Proyecto """
 
-    project = Project.query.filter_by(id=project_id).first()
+    project = db_session.query(Project).filter_by(id=project_id).filter(Project.user_email == current_user.email).first()
+
+    if not project:
+        return redirect(url_for('projects.projects_index'))
 
     project_form = ProjectForm(request.form) if request.method == 'POST' else ProjectForm(obj=project)
     project_form.submit.label.text = 'Editar'
@@ -90,9 +93,10 @@ def projects_edit(project_id):
         project_img = request.files.get('project_img') if request.files.get('project_img') else None
 
         if project_img:
-            storage.delete(f'users/{current_user.email}/project/project_{project_id}', token=token_hex(16))
-            storage.child(f'users/{current_user.email}/project/project_{project_id}').put(project_img)
-            project_path = storage.child(f'users/{current_user.email}/project/project_{project_id}').get_url(token=token_hex(16))
+            if project.image:
+                storage.delete(f'users/{current_user.email}/projects/project_{project_id}', token=token_hex(16))
+            storage.child(f'users/{current_user.email}/projects/project_{project_id}').put(project_img)
+            project_path = storage.child(f'users/{current_user.email}/projects/project_{project_id}').get_url(token=token_hex(16))
         
         project.name = project_form.name.data
         project.description = project_form.description.data
@@ -110,7 +114,10 @@ def projects_edit(project_id):
 def projects_delete(project_id):
     """ Página para eliminar un Proyecto """
 
-    project = Project.query.filter_by(id=project_id).first()
+    project = db_session.query(Project).filter_by(id=project_id).filter(Project.user_email == current_user.email).first()
+    if not project:
+        return redirect(url_for('projects.projects_index'))
+
     delete_form = DeleteDataForm()
 
     context = {
@@ -124,7 +131,7 @@ def projects_delete(project_id):
     
     if delete_form.validate_on_submit():
         if project.image:
-            storage.delete(f'users/{current_user.email}/project/project_{project_id}', token=token_hex(16))
+            storage.delete(f'users/{current_user.email}/projects/project_{project_id}', token=token_hex(16))
 
         db_session.delete(project)
         db_session.commit()
