@@ -5,6 +5,7 @@ from flask_login import login_required, current_user
 from app.forms.forms import EducationForm, DeleteDataForm
 from app.model.db_config import db_session
 from app.model.models import Education
+from app.utils.const import education_fields
 
 education = Blueprint('education', __name__)
 
@@ -16,8 +17,6 @@ def education_index():
 
     user_educations = db_session.query(Education).filter_by(
         user_email=current_user.email).all()
-    education_fields = ['study', 'education_institution',
-                        'description', 'start_date', 'final_date', 'current', 'course']
 
     context = {
         'title': 'Datos Académicos',

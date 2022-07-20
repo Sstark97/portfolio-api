@@ -5,6 +5,7 @@ from flask_login import login_required, current_user
 from app.forms.forms import WorkForm, DeleteDataForm
 from app.model.db_config import db_session
 from app.model.models import Work
+from app.utils.const import work_fields
 
 work = Blueprint('work', __name__)
 
@@ -15,7 +16,6 @@ def work_index():
     """ Página de Acerca de """
 
     user_works = db_session.query(Work).filter_by(user_email=current_user.email).all()
-    work_fields = ['position', 'company', 'description', 'start_date', 'final_date', 'current']
 
     context = {
         'title': 'Experiencia de Trabajo',
