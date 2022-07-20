@@ -2,7 +2,7 @@
 from flask import Flask
 from flask_restful import Api
 from flask_login import LoginManager
-from app.controller.controllers import auth, account, projects, work, education, hobby, skill
+from app.controller.controllers import auth, account, projects, work, education, hobby, skill, docs
 from app.api.resources import Hobbies, Skills, WorkExperience, EducationExperience, Projects, UserAllData, UserData
 from app.model.db_config import init_db
 from app.model.schema.schema_config import ma
@@ -19,6 +19,7 @@ def create_app():
     app.register_blueprint(education)
     app.register_blueprint(hobby)
     app.register_blueprint(skill)
+    app.register_blueprint(docs)
 
     api = Api(app, catch_all_404s=True)
     api.add_resource(Hobbies, '/api/v1/hobbies')

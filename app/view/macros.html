@@ -103,3 +103,21 @@
     </p>
     {% endif %}
 {% endmacro %}
+
+{% macro render_api_doc(data) %}
+
+        {% for row in data %}
+            <div class="col-md-8 mx-auto">
+                {% for route in row.routes %}
+                    <div class="mb-2">
+                        <div>
+                            <span class="badge me-3 {{ route.color }} ">{{ route.method }} </span>
+                            <span class="fw-bold me-3"> {{ route.endpoint }}</span>
+                            <span class="fw-semibold">{{ route.description }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+{% endmacro %}

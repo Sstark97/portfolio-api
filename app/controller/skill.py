@@ -4,6 +4,7 @@ from flask_login import login_required, current_user
 from app.forms.forms import SkillForm, DeleteDataForm
 from app.model.db_config import db_session
 from app.model.models import Skill
+from app.utils.const import skills_fields
 
 skill = Blueprint('skills', __name__)
 
@@ -14,7 +15,6 @@ def skills_index():
 
     user_skills = db_session.query(Skill).filter_by(
         user_email=current_user.email).all()
-    skills_fields = ['name', 'level']
 
     context = {
         'title': 'Habilidades',

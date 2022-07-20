@@ -6,3 +6,4 @@ from app.controller.work import work
 from app.controller.education import education
 from app.controller.hobby import hobby
 from app.controller.skill import skill
+from app.controller.docs import docs
