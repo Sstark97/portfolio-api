@@ -36,9 +36,6 @@ class LoginForm(FlaskForm):
         if passwd and not check_password(password.data, passwd):
             raise ValidationError('La contraseña no es valida')
 
-        if passwd and not check_password(password.data, passwd):
-            raise ValidationError('La contraseña no es valida')
-
     remember_me = BooleanField('Recordarme')
 
     submit = SubmitField('Continuar')
