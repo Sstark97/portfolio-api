@@ -34,7 +34,7 @@ textarea {
     background: var(--secondary);
 }
 
-#user_nav {
+#user_nav, .doc {
     background: var(--fourth);
     color: #000;
 }

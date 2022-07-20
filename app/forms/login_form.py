@@ -29,9 +29,10 @@ class LoginForm(FlaskForm):
     def validate_password(self,password):
         """Función que valida la contraseña"""
 
-        passwd = db_session.query(User).filter_by(email=self.email.data).first().password
-
-        if not check_password(password.data, passwd):
+        passwd_db = db_session.query(User).filter_by(email=self.email.data).first()
+        passwd = passwd_db.password if passwd_db else None
+        
+        if passwd and not check_password(password.data, passwd):
             raise ValidationError('La contraseña no es valida')
 
 
