@@ -1,0 +1,31 @@
+{% extends 'base.html'%}
+{% from 'macros.html' import render_api_doc %}
+
+{% block title %}
+{{super()}}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+
+<main>
+    <div class="mb-4">
+        <div class="container-xxl bd-gutter">
+            <div class="col-md-8 mx-auto">
+                <h1 class="mb-3 my-5 fw-semibold text-center">Empiece a usar PortFolio API</h1>
+                <p class="lead mb-4">
+                    Para poder usar la API es necesario tener una cuenta en la plataforma,
+                    obtener su <code>API Token</code>, y poder obtener los datos de su portfolio.
+                    Una vez disponga del <code>API Token</code>, deberá pasarlo en la cabecera de
+                    su petición http como <code>x-access-tokens</code>.
+                </p>
+            </div>
+            
+            <h2 class="mb-3 my-5 fw-semibold text-center">Rutas</h2>
+            {{ render_api_doc(data) }}
+        </div>
+</main>
+
+{% endblock content %}
