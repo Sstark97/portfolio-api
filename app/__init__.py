@@ -2,6 +2,7 @@
 from flask import Flask
 from flask_restful import Api
 from flask_login import LoginManager
+from flask_cors import CORS
 from app.controller.controllers import auth, account, projects, work, education, hobby, skill, docs
 from app.api.resources import Hobbies, Skills, WorkExperience, EducationExperience, Projects, UserAllData, UserData
 from app.model.db_config import init_db
@@ -11,6 +12,8 @@ def create_app():
     """Crea la Aplicación de Flask"""
     app = Flask(__name__, static_folder='static', template_folder='view')
     app.env = 'development'
+
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
 
     app.register_blueprint(auth)
     app.register_blueprint(account)
