@@ -1,5 +1,4 @@
 """ Archivo inicial de la App de Flask"""
-from os import environ
 import unittest
 from flask import render_template
 from app import create_app
