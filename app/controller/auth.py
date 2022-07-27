@@ -65,9 +65,10 @@ def register():
         
         load_dotenv()
         token = encode({ 'public_id': register_form.name.data }, getenv('SECRET_KEY'))
+        hashed_passwd =  hash_password(register_form.password.data)
 
         new_user = User(register_form.email.data, register_form.name.data, register_form.surnames.data, register_form.adress.data,
-                        register_form.phone.data, hash_password(register_form.password.data), token, 
+                        register_form.phone.data, hashed_passwd, token, 
                         presentation=register_form.presentation.data, avatar=user_avatar_path)
         db_session.add(new_user)
         db_session.commit()
