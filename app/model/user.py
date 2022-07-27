@@ -27,7 +27,7 @@ class User(UserMixin, Base):
     phone = Column(String(100))
     password = Column(String(100), nullable=False)
     avatar = Column(String(500))
-    api_token = Column(String(100))
+    api_token = Column(String(150))
     hobbies = relationship('Hobby', back_populates='user_hobby', cascade='all, delete, delete-orphan')
     skills = relationship('Skill', back_populates='user_skill', cascade='all, delete, delete-orphan')
     work = relationship('Work', back_populates='user_work', cascade='all, delete, delete-orphan')
