@@ -6,7 +6,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 load_dotenv()
-DATA_BASE_URI = getenv('DATABASE_URL')
+DATA_BASE_URI = getenv('DATABASE_URL' )
 if DATA_BASE_URI and DATA_BASE_URI.startswith("postgres://"):
     DATA_BASE_URI = DATA_BASE_URI.replace("postgres://", "postgresql://", 1)
 
@@ -26,4 +26,4 @@ def init_db():
     import app.model.hobby
     import app.model.skill
 
-    Base.metadata.create_all(bind=engine)
+    Base.metadata.create_all(bind=engine, checkfirst=True)
