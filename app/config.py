@@ -8,7 +8,7 @@ class Config:
 
     SECRET_KEY = getenv('SECRET_KEY')
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///portfolio.db'
+    SQLALCHEMY_DATABASE_URI = getenv('DATABASE_URL')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOAD_FOLDER = 'static/img'
     
