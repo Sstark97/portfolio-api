@@ -9,8 +9,8 @@ load_dotenv()
 DATA_BASE_URI = getenv('DATABASE_URL')
 if DATA_BASE_URI and DATA_BASE_URI.startswith("postgres://"):
     DATA_BASE_URI = DATA_BASE_URI.replace("postgres://", "postgresql://", 1)
-    
-engine = create_engine(f'{DATA_BASE_URI}/portfolio.db?check_same_thread=False')
+
+engine = create_engine(f'{DATA_BASE_URI}/portfolio.db')
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))
