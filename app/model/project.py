@@ -18,9 +18,9 @@ class Project(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(100), nullable=False)
     description = Column(String(1000), nullable=False)
-    image = Column(String(100))
-    web = Column(String(100))
-    repository = Column(String(100), nullable=False)
+    image = Column(String(500))
+    web = Column(String(300))
+    repository = Column(String(300), nullable=False)
 
     user_email = Column(String(100), ForeignKey('user.email', ondelete="CASCADE"), nullable=False)
     user_project = relationship('User', back_populates='project')
