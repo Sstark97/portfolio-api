@@ -23,6 +23,7 @@ def token_required(func):
 
         if 'x-access-tokens' in request.headers:
             token = request.headers['x-access-tokens']
+            print(token)
             db_token = db_session.query(User).filter(User.api_token == token).first()
 
             if not db_token:

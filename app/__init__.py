@@ -4,7 +4,7 @@ from flask_restful import Api
 from flask_login import LoginManager
 from flask_cors import CORS
 from app.controller.controllers import auth, account, projects, work, education, hobby, skill, docs
-from app.api.resources import Hobbies, Skills, WorkExperience, EducationExperience, Projects, UserAllData, UserData
+from app.api.resources import Hobbies, Skills, WorkExperience, EducationExperience, Projects, UserAllData, UserData, ContactEmail
 from app.model.db_config import init_db
 from app.model.schema.schema_config import ma
 
@@ -32,6 +32,7 @@ def create_app():
     api.add_resource(Projects, '/api/v1/projects')
     api.add_resource(UserData, '/api/v1/user')
     api.add_resource(UserAllData, '/api/v1/user/all')
+    api.add_resource(ContactEmail, '/api/v1/contact')
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
